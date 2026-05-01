@@ -1,0 +1,516 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'New Amsterdam', sans-serif;
+}
+
+body {
+    background-color: #FFF8F6; /* Base background */
+    color: #85531E;
+    overflow-x: hidden;
+}
+
+/* Header / Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: rgba(255, 248, 246, 0.8); /* #FFF8F6 at 80% */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid #c47929;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #85531E;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #85531E;
+    font-size: 24px;
+    margin-left: 30px;
+    transition: 0.3s;
+}
+
+.nav-links a.active {
+    background-color: #85531E;
+    color: #FFF8F6;
+    padding: 5px 20px;
+    border-radius: 50px;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: flex-start;   /* move content upward */
+    justify-content: space-between;
+    gap: 60px;
+    padding: 30px 8% 0;
+    height: 100vh;
+    background-color: #FFF1EC;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 700px;
+}
+
+.badge {
+    background-color: #FDE2CC;
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-size: 24px;
+    display: block;
+    width: fit-content;
+    margin: 120px auto 0;
+}
+
+.hero-content h1 {
+    font-size: 70px;
+    line-height: 0.95;
+    white-space: nowrap;
+    margin-top: 20px;
+}
+
+.hero-content p {
+    font-size: 28px;
+    line-height: 1.2;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn-see-more {
+    position: relative;
+    background-color: #85531E;
+    color: #FFF8F6;
+    padding: 15px 45px;
+    border-radius: 50px;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 20px 40px rgba(133, 83, 30, 0.2);
+    transition: all 0.3s ease;
+    transform: translateY(0);
+    z-index: 1;
+
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+/* hover effects */
+.btn-see-more:hover {
+    transform: scale(1.05);
+}
+
+.btn-see-more:active {
+    transform: scale(0.95);
+}
+
+/* OUTER RING FIXED */
+.btn-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: 999px;
+
+    border: 2px solid rgba(133, 83, 30, 0.25);
+    opacity: 0.8;
+
+    z-index: -1; /* KEY FIX */
+    transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+/* hover animation */
+.btn-see-more:hover .btn-ring {
+    transform: scale(1.12);
+    opacity: 1;
+}
+
+.hero-image-container {
+    flex: 0 0 620px;
+    position: relative;
+    width: 620px;
+    height: 90vh;
+    margin-left: auto;
+}
+
+/* Background frame (your exported Figma PNG) */
+.hero-frame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+}
+
+/* Portrait on top */
+.hero-portrait {
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    top: 15%;
+    left: 15%;
+    object-fit: cover;
+    z-index: 2;
+    border-radius: 30px; /* optional soft crop */
+}
+
+/* Works Section Styling */
+.works-section {
+    background-color: #E9E2FF;
+    width: 100%;
+    min-height: 300px; /* From your Figma height */
+    padding: 35px 32px; /* Vertical 160, Horizontal 32 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.works-inner-container {
+    background-color: #FFF1EC;
+    width: 100%;
+    max-width: 1250px;
+    height: 520px;
+    border-radius: 48px; /* Optional: adds a slight curve to match Figma blobs */
+    border: 2px solid rgba(133, 83, 30, 0.2); /* soft brown border */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+    
+}
+
+/* Layered "My Works" Title */
+.title-wrapper {
+    position: relative;
+    width: 239px; /* Background layer width */
+    height: 87px;
+    margin-top: 20px; /* Position Y(20) */
+}
+
+.title-bg-layer {
+    position: absolute;
+    width: 239px;
+    height: 87px;
+    background-color: #E9E2FF;
+    border-radius: 50px;
+    z-index: 1;
+    border: 2px solid #c47929;
+}
+
+.title-top-layer {
+    position: absolute;
+    width: 189px;
+    height: 64px;
+    background-color: #FDE2CC;
+    border: 2px solid #FFF1EC;
+    border-radius: 50px;
+    z-index: 2;
+    top: 11px; /* Position Y(11) */
+    left: 25px; /* Position X(25) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: normal;
+    color: #85531E;
+}
+
+/* Projects Grid Layout */
+.projects-grid {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px; /* Adjusted to fit within the 480px height container */
+    padding: 0 50px;
+}
+
+.project-card {
+    background-color: #E9E2FF;
+    width: 354px;
+    height: 313px;
+    border-radius: 48px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 2px solid #c47929;
+}
+
+
+
+/* Top folder Badge */
+.project-icon-badge {
+    background-color: #FDE2CC;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    border: 2px solid #c47929;
+}
+
+.project-icon {
+    font-size: 22px;
+    color: #85531E;
+}
+
+.project-logo-2 img,
+.project-logo-3 img {
+    width: 250px;  /* bigger than first */
+    height: auto;
+    object-fit: contain;
+    margin-left: 35px;
+}
+
+
+/* Bottom Label */
+.project-info-label {
+    background-color: #FDE2CC;
+    width: 100%;
+    padding: 15px 10px;
+    border-radius: 40px;
+    text-align: center;
+    border: 2px solid #FFF1EC;
+}
+
+.project-info-label h3 {
+    font-size: 24px;
+    color: #85531E;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+}
+
+.project-info-label p {
+    font-size: 16px;
+    color: #85531E;
+    opacity: 0.8;
+}
+
+.project-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+
+    position: absolute;
+    top: 35%;   /* keeps it inside card */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.project-logo img {
+    width: 160px;  /* increased size */
+    height: auto;
+    object-fit: contain;
+}
+
+:root {
+    --bg-peach: #fdf5f0;
+    --accent-brown: #6d4c41;
+    --wedge-light: #f9d8c9;
+    --wedge-active: #fbc4ab;
+    --circle-size: 400px;
+}
+
+.skills-section {
+    padding: 100px 10%;
+    background-color: var(--bg-peach);
+    display: flex;
+    justify-content: center;
+}
+
+.skills-container {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+/* --- The Pie Circle Logic --- */
+.skills-circle-wrapper {
+    position: relative;
+    width: var(--circle-size);
+    height: var(--circle-size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skills-pie-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #c47929 !important;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.skill-wedge {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--wedge-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+    
+    
+}
+
+/* Creating the 4 wedges using clip-path */
+.skill-wedge-link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.skill-wedge-link-top {
+    clip-path: polygon(50% 50%, 0% 0%, 100% 0%);
+}
+.skill-wedge.top {
+    clip-path: polygon(50% 50%, 0% 0%, 100% 0%);
+    background-color: #FDE2CC;
+    transition: 0.3s;
+}
+.skill-wedge-link-top:hover {
+    background-color: #fbc4ab;
+}
+.skill-wedge-link-top:hover .skill-wedge.top {
+    background-color: #fbc4ab;
+    transform: scale(1.05);
+}
+.skill-wedge-link-right {
+    clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
+}
+.skill-wedge.right {
+    clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
+    background-color: #f9dbce;
+    transition: 0.3s;
+}
+.skill-wedge-link-right:hover {
+    background-color: #fbc4ab;
+}
+.skill-wedge-link-right:hover .skill-wedge.right {
+    background-color: #fbc4ab;
+    transform: scale(1.05);
+}
+.skill-wedge-link-bottom {
+    clip-path: polygon(50% 50%, 100% 100%, 0% 100%);
+}
+.skill-wedge.bottom {
+    clip-path: polygon(50% 50%, 100% 100%, 0% 100%);
+    background-color: var(--wedge-active);
+    transition: 0.3s;
+}
+.skill-wedge-link-bottom:hover {
+    background-color: #fbc4ab;
+}
+.skill-wedge-link-bottom:hover .skill-wedge.bottom {
+    background-color: #fbc4ab;
+    transform: scale(1.05);
+}
+.skill-wedge-link-left {
+    clip-path: polygon(50% 50%, 0% 100%, 0% 0%);
+}
+.skill-wedge.left {
+    clip-path: polygon(50% 50%, 0% 100%, 0% 0%);
+    background-color: #f9dbce;
+    transition: 0.3s;
+}
+.skill-wedge-link-left:hover {
+    background-color: #fbc4ab;
+}
+.skill-wedge-link-left:hover .skill-wedge.left {
+    background-color: #fbc4ab;
+    transform: scale(1.05);
+}
+
+/* Active Highlight (Soft Skills in your image) */
+.skill-wedge.active {
+    background-color: var(--wedge-active);
+}
+
+/* Positioning Icons and Text within wedges */
+.wedge-content {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--accent-brown);
+    pointer-events: none;
+}
+
+.top .wedge-content { transform: translateY(-100px); }
+.right .wedge-content { transform: translateX(100px); }
+.bottom .wedge-content { transform: translateY(100px); }
+.left .wedge-content { transform: translateX(-100px); }
+
+.wedge-content i { font-size: 1.8rem; margin-bottom: 5px; }
+.wedge-content span { font-weight: 700; font-size: 1rem; }
+
+/* The White Inner Circle */
+.skills-inner-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 130px;
+    height: 130px;
+    background: white;
+    border: 2px solid #c47929;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--accent-brown);
+}
+
+/* The light outer border ring seen in your reference */
+.outer-ring-decoration {
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    border: 2px solid #c47929;
+    border-radius: 50%;
+    opacity: 0.8;
+    z-index: -1;
+}
+
+/* --- Card Styles --- */
+.soft-skills-card {
+    background: #fdf5f0;
+    border: 2.5px solid var(--accent-brown);
+    border-radius: 40px;
+    padding: 40px;
+    width: 500px;
+    box-shadow: 10px 10px 0px var(--wedge-light);
+}
+
+.card-header h2 { font-family: 'New Amsterdam', sans-serif; font-size: 2.2rem; margin: 0; }
+.skill-bar-item { margin-bottom: 20px; }
+.skill-info { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 800; color: var(--accent-brown); margin-bottom: 5px; }
+.progress-line { width: 100%; height: 8px; background: #efe0d8; border-radius: 10px; }
+.fill { height: 100%; background: var(--accent-brown); border-radius: 10px; }

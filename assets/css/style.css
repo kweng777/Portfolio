@@ -322,29 +322,31 @@ body {
     object-fit: contain;
 }
 
+
 :root {
-    --bg-peach: #fdf5f0;
-    --accent-brown: #6d4c41;
-    --wedge-light: #f9d8c9;
-    --wedge-active: #fbc4ab;
-    --circle-size: 400px;
+    --bg-white: #ffffff;
+    --soft-purple: #E9E2FF;
+    --text-main: #85531E;
+    --accent-brown: #6d4c41; /* Restored for your right column */
+    --circle-size: 500px;
 }
 
+/* --- Layout Container --- */
 .skills-section {
-    padding: 100px 10%;
-    background-color: var(--bg-peach);
-    display: flex;
-    justify-content: center;
+    padding: 60px 5%;
+    background-color: #faf9ff;
 }
 
 .skills-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* This keeps both columns visible */
     align-items: center;
     gap: 60px;
-    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* --- The Pie Circle Logic --- */
+/* --- LEFT SIDE: CLOUD DESIGN --- */
 .skills-circle-wrapper {
     position: relative;
     width: var(--circle-size);
@@ -358,159 +360,116 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    border: 2px solid #c47929 !important;
-    border-radius: 50%;
-    overflow: hidden;
 }
 
 .skill-wedge {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: var(--wedge-light);
+    width: 48%;
+    height: 48%;
+    background-color: #FDE2CC;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 0.3s;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     
-    
+    /* Cloud Mask */
+    -webkit-mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M25,10 C15,10 5,20 5,35 C5,50 15,55 10,70 C5,85 20,95 40,90 C55,95 75,95 85,80 C95,65 95,45 85,30 C85,10 65,5 50,15 C40,5 25,5 25,10 Z" fill="black"/></svg>');
+    mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M25,10 C15,10 5,20 5,35 C5,50 15,55 10,70 C5,85 20,95 40,90 C55,95 75,95 85,80 C95,65 95,45 85,30 C85,10 65,5 50,15 C40,5 25,5 25,10 Z" fill="black"/></svg>');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
 }
 
-/* Creating the 4 wedges using clip-path */
-.skill-wedge-link {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-.skill-wedge-link-top {
-    clip-path: polygon(50% 50%, 0% 0%, 100% 0%);
-}
-.skill-wedge.top {
-    clip-path: polygon(50% 50%, 0% 0%, 100% 0%);
-    background-color: #FDE2CC;
-    transition: 0.3s;
-}
-.skill-wedge-link-top:hover {
-    background-color: #fbc4ab;
-}
-.skill-wedge-link-top:hover .skill-wedge.top {
-    background-color: #fbc4ab;
-    transform: scale(1.05);
-}
-.skill-wedge-link-right {
-    clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
-}
-.skill-wedge.right {
-    clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
-    background-color: #f9dbce;
-    transition: 0.3s;
-}
-.skill-wedge-link-right:hover {
-    background-color: #fbc4ab;
-}
-.skill-wedge-link-right:hover .skill-wedge.right {
-    background-color: #fbc4ab;
-    transform: scale(1.05);
-}
-.skill-wedge-link-bottom {
-    clip-path: polygon(50% 50%, 100% 100%, 0% 100%);
-}
-.skill-wedge.bottom {
-    clip-path: polygon(50% 50%, 100% 100%, 0% 100%);
-    background-color: var(--wedge-active);
-    transition: 0.3s;
-}
-.skill-wedge-link-bottom:hover {
-    background-color: #fbc4ab;
-}
-.skill-wedge-link-bottom:hover .skill-wedge.bottom {
-    background-color: #fbc4ab;
-    transform: scale(1.05);
-}
-.skill-wedge-link-left {
-    clip-path: polygon(50% 50%, 0% 100%, 0% 0%);
-}
-.skill-wedge.left {
-    clip-path: polygon(50% 50%, 0% 100%, 0% 0%);
-    background-color: #f9dbce;
-    transition: 0.3s;
-}
-.skill-wedge-link-left:hover {
-    background-color: #fbc4ab;
-}
-.skill-wedge-link-left:hover .skill-wedge.left {
-    background-color: #fbc4ab;
-    transform: scale(1.05);
-}
+/* Positioning & Rotation for Organic Look */
+.skill-wedge.top { top: 0; left: 0; transform: rotate(-5deg); }
+.skill-wedge.right { top: 0; right: 0; transform: rotate(85deg); }
+.skill-wedge.bottom { bottom: 0; left: 0; transform: rotate(-95deg); }
+.skill-wedge.left { bottom: 0; right: 0; transform: rotate(175deg); }
 
-/* Active Highlight (Soft Skills in your image) */
-.skill-wedge.active {
-    background-color: var(--wedge-active);
-}
-
-/* Positioning Icons and Text within wedges */
 .wedge-content {
-    position: absolute;
+    transform: rotate(var(--correction, 5deg));
+    text-align: center;
+    color: var(--text-main);
+    font-weight: bold;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: var(--accent-brown);
-    pointer-events: none;
+    gap: 8px;
+    font-size: 35px;
 }
 
-.top .wedge-content { transform: translateY(-100px); }
-.right .wedge-content { transform: translateX(100px); }
-.bottom .wedge-content { transform: translateY(100px); }
-.left .wedge-content { transform: translateX(-100px); }
+/* Correcting text rotation based on parent rotation */
+.skill-wedge.right .wedge-content { --correction: -85deg; }
+.skill-wedge.bottom .wedge-content { --correction: 95deg; }
+.skill-wedge.left .wedge-content { --correction: -175deg; }
 
-.wedge-content i { font-size: 1.8rem; margin-bottom: 5px; }
-.wedge-content span { font-weight: 700; font-size: 1rem; }
-
-/* The White Inner Circle */
 .skills-inner-circle {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 130px;
-    height: 130px;
-    background: white;
-    border: 2px solid #c47929;
-    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    background: #FDE2CC;
+    z-index: 20;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10;
     font-weight: 800;
-    font-size: 1.2rem;
-    color: var(--accent-brown);
+    font-size: 20px;
+    color: #85531E;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    -webkit-mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,10 C30,10 20,25 20,40 C10,45 5,60 15,75 C25,90 45,90 50,80 C55,90 75,90 85,75 C95,60 90,45 80,40 C80,25 70,10 50,10 Z" fill="black"/></svg>');
+    mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,10 C30,10 20,25 20,40 C10,45 5,60 15,75 C25,90 45,90 50,80 C55,90 75,90 85,75 C95,60 90,45 80,40 C80,25 70,10 50,10 Z" fill="black"/></svg>');
 }
 
-/* The light outer border ring seen in your reference */
-.outer-ring-decoration {
-    position: absolute;
-    width: 110%;
-    height: 110%;
-    border: 2px solid #c47929;
-    border-radius: 50%;
-    opacity: 0.8;
-    z-index: -1;
+.skill-wedge:hover {
+    background-color: #dcd1ff;
+    transform: scale(1.08) rotate(var(--rot, 0deg));
 }
 
-/* --- Card Styles --- */
+/* --- RIGHT SIDE: PILL LIST --- */
 .soft-skills-card {
-    background: #fdf5f0;
-    border: 2.5px solid var(--accent-brown);
-    border-radius: 40px;
-    padding: 40px;
-    width: 500px;
-    box-shadow: 10px 10px 0px var(--wedge-light);
+    background: transparent;
+    width: 100%;
 }
 
-.card-header h2 { font-family: 'New Amsterdam', sans-serif; font-size: 2.2rem; margin: 0; }
-.skill-bar-item { margin-bottom: 20px; }
-.skill-info { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 800; color: var(--accent-brown); margin-bottom: 5px; }
-.progress-line { width: 100%; height: 8px; background: #efe0d8; border-radius: 10px; }
-.fill { height: 100%; background: var(--accent-brown); border-radius: 10px; }
+.card-header h2 { 
+    font-family: 'New Amsterdam', sans-serif; 
+    font-size: 2.8rem; 
+    margin-bottom: 40px;
+    color: #85531E;
+}
+
+.skill-bar-item {
+    background: #FDE2CC;
+    margin-bottom: 20px;
+    padding: 25px 30px;
+    border-radius: 100px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 800;
+    color: #85531E;
+    margin-bottom: 12px;
+    font-size: 20px;
+}
+
+.progress-line {
+    width: 100%;
+    height: 6px;
+    background: #85531E;
+    border-radius: 10px;
+}
+
+.fill {
+    height: 100%;
+    background: #85531E;
+    border-radius: 10px;
+}

@@ -14,10 +14,7 @@
 
     <!-- LOGO -->
     <div class="logo">
-        <?php 
-        $logo = get_field('site_logo_text');
-        echo $logo ? esc_html($logo) : 'PORTFOLIO';
-        ?>
+        <img src="<?php echo get_template_directory_uri(); ?>/images/logo222.png" alt="Logo">
     </div>
 
     <!-- NAVIGATION -->

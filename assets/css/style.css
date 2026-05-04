@@ -26,9 +26,14 @@ body {
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #85531E;
+    display: flex;
+    align-items: flex-start;
+}
+
+.logo img {
+    height: 50px;
+    transform: translateX(-60px) scale(1.6);
+    transform-origin: left bottom;
 }
 
 .nav-links a {
@@ -382,10 +387,10 @@ body {
 }
 
 /* Positioning & Rotation for Organic Look */
-.skill-wedge.top { top: 0; left: 0; transform: rotate(-5deg); }
-.skill-wedge.right { top: 0; right: 0; transform: rotate(85deg); }
-.skill-wedge.bottom { bottom: 0; left: 0; transform: rotate(-95deg); }
-.skill-wedge.left { bottom: 0; right: 0; transform: rotate(175deg); }
+.skill-wedge.top { top: 0; left: 0; --rot: -5deg; transform: rotate(-5deg); }
+.skill-wedge.right { top: 0; right: 0; --rot: 85deg; transform: rotate(85deg); }
+.skill-wedge.bottom { bottom: 0; left: 0; --rot: -95deg; transform: rotate(-95deg); }
+.skill-wedge.left { bottom: 0; right: 0; --rot: 175deg; transform: rotate(175deg); }
 
 .wedge-content {
     transform: rotate(var(--correction, 5deg));
@@ -433,6 +438,8 @@ body {
 .soft-skills-card {
     background: transparent;
     width: 100%;
+    align-self: start; /* keep right column pinned to top of the grid */
+    margin-top: 0;
 }
 
 .card-header h2 { 

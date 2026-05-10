@@ -97,4 +97,57 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ─── Projects Carousel (Front Page) ─────────────────────────────
+    const carousel = document.querySelector('.projects-carousel');
+    if (carousel) {
+        const grid = carousel.querySelector('.projects-grid');
+        const cards = Array.from(grid.querySelectorAll('.project-card'));
+        const prevBtn = carousel.querySelector('.carousel-arrow.prev');
+        const nextBtn = carousel.querySelector('.carousel-arrow.next');
+        const dotsContainer = carousel.querySelector('.carousel-dots');
+
+        if (cards.length) {
+            let index = Math.floor(cards.length/2); // start with center card if possible
+
+            // create dots
+            cards.forEach((c, i) => {
+                const d = document.createElement('button');
+                d.addEventListener('click', () => { index = i; update(); });
+                dotsContainer.appendChild(d);
+            });
+
+            function clamp(n) {
+                if (n < 0) return cards.length - 1;
+                if (n >= cards.length) return 0;
+                return n;
+            }
+
+            function update() {
+                cards.forEach((card, i) => {
+                    card.className = 'project-card'; // reset
+                    const dot = dotsContainer.children[i];
+                    dot.classList.toggle('active', i === index);
+
+                    const offset = i - index;
+                    if (offset === 0) card.classList.add('center');
+                    else if (offset === -1 || (index === 0 && i === cards.length-1)) card.classList.add('left');
+                    else if (offset === 1 || (index === cards.length-1 && i === 0)) card.classList.add('right');
+                    else if (offset < 0) card.classList.add('back-left');
+                    else if (offset > 0) card.classList.add('back-right');
+                });
+            }
+
+            prevBtn.addEventListener('click', () => { index = clamp(index - 1); update(); });
+            nextBtn.addEventListener('click', () => { index = clamp(index + 1); update(); });
+
+            // keyboard support
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') prevBtn.click();
+                if (e.key === 'ArrowRight') nextBtn.click();
+            });
+
+            update();
+        }
+    }
 });

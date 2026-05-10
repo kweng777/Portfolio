@@ -27,16 +27,12 @@ $email      = get_field( 'social_email' );
 
     <div class="hero-content">
 
-        <span class="badge">
-            <?php echo get_field('hero_badge') ?: 'HEY THERE!'; ?>
-        </span>
-
         <h1>
-            <?php echo get_field('hero_name') ?: "I'M QUENNIE BARBARONA"; ?>
+            <?php echo get_field('hero_name') ?: "I'M QUENNIE ROSE BARBARONA"; ?>
         </h1>
 
         <p>
-            <?php echo get_field('hero_description') ?: 'EAGER TO LEARN AND GROW IN I.T, AND<br>GRABBING EVERY OPPORTUNITY TO IMPROVE ME.'; ?>
+            <?php echo get_field('hero_description') ?: 'EAGER TO LEARN AND GROW IN I.T, AND GRABBING <br> EVERY OPPORTUNITY TO IMPROVE ME.'; ?>
         </p>
 
         <button class="btn-see-more">
@@ -48,7 +44,7 @@ $email      = get_field( 'social_email' );
 
     <div class="hero-image-container">
 
-        <img src="<?php echo get_template_directory_uri(); ?>/images/background-frame.png" class="hero-frame">
+        <img src="<?php echo get_template_directory_uri(); ?>/images/BIBBLE1.png" class="hero-frame">
 
         <?php
         $portrait = get_field('hero_image');
@@ -68,49 +64,50 @@ $works = new WP_Query(array(
 ?>
 
 <section class="works-section">
-    <div class="works-inner-container">
-
+    
         <div class="title-wrapper">
-            <div class="title-bg-layer"></div>
             <div class="title-top-layer">MY WORKS</div>
         </div>
 
-        <div class="projects-grid">
+        <div class="projects-carousel">
+            <button class="carousel-arrow prev" aria-label="Previous project">‹</button>
+            <div class="projects-grid">
 
-            <?php if ($works->have_posts()) : ?>
-                <?php while ($works->have_posts()) : $works->the_post(); ?>
+                <?php if ($works->have_posts()) : ?>
+                    <?php while ($works->have_posts()) : $works->the_post(); ?>
 
-                    <div class="project-card">
+                        <div class="project-card">
 
-                        <div class="project-icon-badge empty"></div>
+                            <div class="project-icon-badge empty"></div>
 
-                        <div class="project-logo">
-                            <?php
-                            $logo = get_field('work_logo');
-                            if ($logo): ?>
-                                <img src="<?php echo esc_url($logo['url']); ?>" alt="">
-                            <?php endif; ?>
+                            <div class="project-logo">
+                                <?php
+                                $logo = get_field('work_logo');
+                                if ($logo): ?>
+                                    <img src="<?php echo esc_url($logo['url']); ?>" alt="">
+                                <?php endif; ?>
+                            </div>
+
+                            <div class="project-info-label">
+                                <h3><?php the_title(); ?></h3>
+                                <p><?php echo get_field('work_subtitle'); ?></p>
+                            </div>
+
                         </div>
 
-                        <div class="project-info-label">
-                            <h3><?php the_title(); ?></h3>
-                            <p><?php echo get_field('work_subtitle'); ?></p>
-                        </div>
+                    <?php endwhile; ?>
+                    <?php wp_reset_postdata(); ?>
+                <?php else : ?>
 
-                    </div>
+                    <!-- fallback (optional but recommended) -->
+                    <p style="color:white;">No works found. Add posts in Dashboard → Works</p>
 
-                <?php endwhile; ?>
-                <?php wp_reset_postdata(); ?>
-            <?php else : ?>
+                <?php endif; ?>
 
-                <!-- fallback (optional but recommended) -->
-                <p style="color:white;">No works found. Add posts in Dashboard → Works</p>
-
-            <?php endif; ?>
-
+            </div>
+            <button class="carousel-arrow next" aria-label="Next project">›</button>
+            <div class="carousel-dots" aria-hidden="false"></div>
         </div>
-
-    </div>
 </section>
 
 <?php

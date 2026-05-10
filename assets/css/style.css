@@ -7,8 +7,8 @@
 }
 
 body {
-    background-color: #FFF8F6; /* Base background */
-    color: #85531E;
+    background-color: #F5EBE0; /* Base background */
+    color: #817773;
     overflow-x: hidden;
 }
 
@@ -18,11 +18,11 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px 5%;
-    background-color: rgba(255, 248, 246, 0.8); /* #FFF8F6 at 80% */
+    background-color: #817773; 
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 2px solid #c47929;
+    border-bottom: 2px solid #F5EBE0;
 }
 
 .logo {
@@ -32,16 +32,22 @@ body {
 
 .logo img {
     height: 50px;
-    transform: translateX(-60px) scale(1.6);
+    transform: translateX(-60px) translateY(15px) scale(1.75);
     transform-origin: left bottom;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: #85531E;
+    color: #F5EBE0;
     font-size: 24px;
     margin-left: 30px;
     transition: 0.3s;
+}
+.nav-links a:hover {
+    background-color: #D5BDAF;
+    color: #817773; /* darker text for readability */
+    padding: 5px 20px;
+    border-radius: 50px;
 }
 
 .nav-links a.active {
@@ -59,7 +65,7 @@ body {
     gap: 60px;
     padding: 30px 8% 0;
     height: 100vh;
-    background-color: #FFF1EC;
+    background-color: #E3D5CA;
 }
 
 .hero-content {
@@ -67,34 +73,24 @@ body {
     max-width: 700px;
 }
 
-.badge {
-    background-color: #FDE2CC;
-    padding: 10px 25px;
-    border-radius: 20px;
-    font-size: 24px;
-    display: block;
-    width: fit-content;
-    margin: 120px auto 0;
-}
-
 .hero-content h1 {
     font-size: 70px;
     line-height: 0.95;
     white-space: nowrap;
-    margin-top: 20px;
+    margin-top: 160px;
 }
 
 .hero-content p {
     font-size: 28px;
     line-height: 1.2;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .btn-see-more {
     position: relative;
-    background-color: #85531E;
-    color: #FFF8F6;
+    background-color: #817773;
+    color: #F5EBE0;
     padding: 15px 45px;
     border-radius: 50px;
     border: none;
@@ -130,7 +126,7 @@ body {
     inset: -6px;
     border-radius: 999px;
 
-    border: 2px solid rgba(133, 83, 30, 0.25);
+    border: 2px solid #817773;
     opacity: 0.8;
 
     z-index: -1; /* KEY FIX */
@@ -144,11 +140,32 @@ body {
 }
 
 .hero-image-container {
-    flex: 0 0 620px;
+    flex: 0 0 420px;
     position: relative;
-    width: 620px;
-    height: 90vh;
+    width: 420px;
+    height: 420px;
     margin-left: auto;
+    background-color: #F5EBE0;
+    border-radius: 60px;
+    overflow: visible;
+    z-index: 0;
+    margin-top: 48px;
+}
+
+.hero-image-container::before {
+    content: '';
+    position: absolute;
+    inset: -16px;
+    border-radius: 68px;
+    border: 2px solid #F5EBE0;
+    opacity: 0.95;
+    z-index: -1;
+    transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+.hero-image-container:hover::before {
+    transform: scale(1.05);
+    opacity: 1;
 }
 
 /* Background frame (your exported Figma PNG) */
@@ -174,36 +191,27 @@ body {
 
 /* Works Section Styling */
 .works-section {
-    background-color: #E9E2FF;
+    background-color: #D5BDAF;
     width: 100%;
-    min-height: 300px; /* From your Figma height */
+    height: 120vh; /* From your Figma height */
     padding: 35px 32px; /* Vertical 160, Horizontal 32 */
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative; /* enable absolute positioning for title */
 }
 
-.works-inner-container {
-    background-color: #FFF1EC;
-    width: 100%;
-    max-width: 1250px;
-    height: 520px;
-    border-radius: 48px; /* Optional: adds a slight curve to match Figma blobs */
-    border: 2px solid rgba(133, 83, 30, 0.2); /* soft brown border */
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 15px;
-    
-}
+
 
 /* Layered "My Works" Title */
 .title-wrapper {
-    position: relative;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 28px; /* float at top center of the works section */
     width: 239px; /* Background layer width */
     height: 87px;
-    margin-top: 20px; /* Position Y(20) */
+    z-index: 5;
 }
 
 .title-bg-layer {
@@ -220,8 +228,8 @@ body {
     position: absolute;
     width: 189px;
     height: 64px;
-    background-color: #FDE2CC;
-    border: 2px solid #FFF1EC;
+    background-color: #F5EBE0;
+    border: 2px solid rgba(129, 119, 115, 0.15);
     border-radius: 50px;
     z-index: 2;
     top: 11px; /* Position Y(11) */
@@ -231,21 +239,89 @@ body {
     align-items: center;
     font-size: 30px;
     font-weight: normal;
-    color: #85531E;
+    color: #817773;
 }
 
 /* Projects Grid Layout */
 .projects-grid {
     display: flex;
-    gap: 40px;
-    margin-top: 40px; /* Adjusted to fit within the 480px height container */
+    gap: 0;
+    margin-top: 110px; /* push cards below the floating title */
     padding: 0 50px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    min-height: 560px;
+}
+
+/* Carousel wrapper & controls */
+.projects-carousel {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.projects-carousel { max-width: 1500px; margin: 0 auto; }
+
+.carousel-arrow {
+    background: transparent;
+    border: none;
+    font-size: 48px;
+    color: rgba(133,83,30,0.9);
+    cursor: pointer;
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.carousel-arrow:hover { transform: scale(1.05); background: rgba(0,0,0,0.03); }
+
+.carousel-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display:flex; gap:8px; z-index:6 }
+.carousel-dots button { width:10px; height:10px; border-radius:50%; border:none; background:rgba(0,0,0,0.15); cursor:pointer }
+.carousel-dots button.active { background: #F5EBE0 }
+
+/* keep cards horizontally centered and overlapping visually */
+.projects-grid .project-card {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin: 0;
+    transition: transform 0.5s cubic-bezier(0.2,0.8,0.2,1), opacity 0.4s ease;
+    will-change: transform, opacity;
+}
+
+/* Card stacking & transforms for carousel look */
+.projects-grid .project-card.center { transform: translate3d(-50%, 20px, 30px) scale(1); z-index: 5; opacity:1; box-shadow: 0 24px 60px rgba(0,0,0,0.22); }
+.projects-grid .project-card.left { transform: translate3d(calc(-50% - 280px), 20px, -40px) scale(0.88); z-index: 3; opacity:0.92; filter: blur(0.3px); }
+.projects-grid .project-card.right { transform: translate3d(calc(-50% + 280px), 20px, -40px) scale(0.88); z-index: 3; opacity:0.92; filter: blur(0.3px); }
+.projects-grid .project-card.back-left { transform: translate3d(calc(-50% - 520px), 20px, -60px) scale(0.78); z-index:2; opacity:0.65; }
+.projects-grid .project-card.back-right { transform: translate3d(calc(-50% + 520px), 20px, -60px) scale(0.78); z-index:2; opacity:0.65; }
+.projects-grid .project-card.hidden { opacity:0; transform: translate3d(-50%, 20px, -80px) scale(0.6); z-index:0; pointer-events:none }
+
+/* Center card label floats outside the card */
+.projects-grid .project-card.center .project-info-label {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    min-width: 320px;
+    white-space: nowrap;
+    z-index: 10;
 }
 
 .project-card {
-    background-color: #E9E2FF;
-    width: 354px;
-    height: 313px;
+    background-color: #F5EBE0;
+    width: 880px;
+    height: 460px;
     border-radius: 48px;
     position: relative;
     display: flex;
@@ -253,22 +329,7 @@ body {
     justify-content: space-between;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border: 2px solid #c47929;
-}
-
-
-
-/* Top folder Badge */
-.project-icon-badge {
-    background-color: #FDE2CC;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    border: 2px solid #c47929;
+    border: 2px solid rgba(129, 119, 115, 0.15);
 }
 
 .project-icon {
@@ -287,25 +348,115 @@ body {
 
 /* Bottom Label */
 .project-info-label {
-    background-color: #FDE2CC;
+    background-color: #817773;
+    color: #F5EBE0;
     width: 100%;
     padding: 15px 10px;
-    border-radius: 40px;
+    border-radius: 50px;
     text-align: center;
-    border: 2px solid #FFF1EC;
+    border: none;
+    box-shadow: 0 20px 40px rgba(133, 83, 30, 0.2);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Hide ring on side carousel cards to avoid overflow/clipping issues */
+.projects-grid .project-card.left .project-info-label::before,
+.projects-grid .project-card.right .project-info-label::before {
+    display: none;
+}
+
+/* Outer ring for project info label */
+.project-info-label::before {
+    content: "";
+    position: absolute;
+    inset: -7px;
+    border-radius: 999px;
+    border: 2px solid #817773;
+    opacity: 0.8;
+    z-index: -1;
+    transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+.project-info-label:hover::before {
+    transform: scale(1.12);
+    opacity: 1;
 }
 
 .project-info-label h3 {
     font-size: 24px;
-    color: #85531E;
+    color: #F5EBE0;
     margin-bottom: 2px;
     letter-spacing: 1px;
 }
 
 .project-info-label p {
     font-size: 16px;
-    color: #85531E;
-    opacity: 0.8;
+    color: #F5EBE0;
+}
+
+/* Override visible text for the side carousel positions (visual-only) */
+.projects-grid .project-card.left .project-info-label h3,
+.projects-grid .project-card.right .project-info-label h3 {
+    color: transparent !important;
+    position: relative;
+}
+.projects-grid .project-card.left .project-info-label p,
+.projects-grid .project-card.right .project-info-label p {
+    color: transparent !important;
+    position: relative;
+}
+
+/* Side cards: smaller, equal label sizing */
+.projects-grid .project-card.left .project-info-label,
+.projects-grid .project-card.right .project-info-label {
+    width: auto;
+    min-width: 240px;
+    max-width: 320px;
+    padding: 10px 16px;
+    margin: 0 auto;
+}
+.projects-grid .project-card.left .project-info-label h3,
+.projects-grid .project-card.right .project-info-label h3 {
+    font-size: 18px;
+}
+.projects-grid .project-card.left .project-info-label p,
+.projects-grid .project-card.right .project-info-label p {
+    font-size: 13px;
+}
+
+/* Left (background) card labels */
+.projects-grid .project-card.left .project-info-label h3::after {
+    content: "RYPACI INTERNSHIP";
+    color: #F5EBE0;
+    display: block;
+    font-weight: 700;
+}
+.projects-grid .project-card.left .project-info-label p::after {
+    content: "OFF-CAMPUS";
+    color: #F5EBE0;
+    display: block;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* Right (background) card labels */
+.projects-grid .project-card.right .project-info-label h3::after {
+    content: "DICT INTERNSHIP";
+    color: #F5EBE0;
+    display: block;
+    font-weight: 700;
+}
+.projects-grid .project-card.right .project-info-label p::after {
+    content: "IN-CAMPUS";
+    color: #F5EBE0;
+    display: block;
+    font-size: 14px;
+    opacity: 0.85;
 }
 
 .project-logo {

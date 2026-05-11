@@ -152,89 +152,72 @@ foreach ($skills_raw as $post) {
 }
 ?>
 
+<?php
+// Get skills for each category
+function get_skills_by_category($category_name) {
+    $skills_raw = get_posts(['post_type' => 'skill', 'posts_per_page' => -1]);
+    $skills = [];
+    foreach ($skills_raw as $post) {
+        $percent = get_field('skill_percent', $post->ID);
+        $category = get_field('skill_category', $post->ID);
+        if (is_array($category)) {
+            $category = $category['value'] ?? $category['label'] ?? '';
+        }
+        if ($category === $category_name) {
+            $skills[] = ['name' => get_the_title($post->ID), 'percent' => $percent];
+        }
+    }
+    return $skills;
+}
+
+$categories = [
+    ['key' => 'frontend', 'label' => $circle['frontend_label'] ?? 'Frontend', 'icon' => $circle['frontend_icon'] ?? ''],
+    ['key' => 'backend', 'label' => $circle['backend_label'] ?? 'Backend', 'icon' => $circle['backend_icon'] ?? ''],
+    ['key' => 'soft', 'label' => $circle['soft_label'] ?? 'Soft Skills', 'icon' => $circle['soft_icon'] ?? ''],
+    ['key' => 'database', 'label' => $circle['database_label'] ?? 'Database', 'icon' => $circle['database_icon'] ?? ''],
+];
+?>
+
 <section class="skills-section">
     <div class="skills-container">
-        
-        <!-- LEFT: CIRCLE -->
-        <div class="skills-circle-wrapper">
-            <div class="skills-pie-container">
-                
-                <!-- Frontend -->
-                <a href="?category=Frontend" class="skill-wedge-link skill-wedge-link-top">
-                    <div class="skill-wedge top">
-                        <div class="wedge-content">
-                            <i class="fa-solid <?php echo esc_attr($circle['frontend_icon'] ?? ''); ?>"></i>
-                            <span><?php echo esc_html($circle['frontend_label'] ?? 'Frontend'); ?></span>
+
+        <!-- FLIP CARDS ROW -->
+        <div class="flip-cards-row">
+
+            <?php foreach ($categories as $cat):
+                $cat_skills = get_skills_by_category($cat['label']);
+            ?>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+
+                    <!-- FRONT: Category Icon & Name -->
+                    <div class="flip-card-front">
+                        <i class="fa-solid <?php echo esc_attr($cat['icon']); ?>"></i>
+                        <span><?php echo esc_html($cat['label']); ?></span>
+                    </div>
+
+                    <!-- BACK: Skills List -->
+                    <div class="flip-card-back">
+                        <div class="flip-card-skills">
+                            <?php foreach ($cat_skills as $skill): ?>
+                                <?php if (!empty($skill['name'])): ?>
+                                    <div class="skill-bar-item">
+                                        <div class="skill-info">
+                                            <span><?php echo esc_html($skill['name']); ?></span>
+                                            <span><?php echo esc_html($skill['percent']); ?>%</span>
+                                        </div>
+                                        <div class="progress-line">
+                                            <div class="fill" style="width: <?php echo esc_attr($skill['percent']); ?>%;"></div>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </div>
                     </div>
-                </a>
 
-                <!-- Backend -->
-                <a href="?category=Backend" class="skill-wedge-link skill-wedge-link-right">
-                    <div class="skill-wedge right">
-                        <div class="wedge-content">
-                            <i class="fa-solid <?php echo esc_attr($circle['backend_icon'] ?? ''); ?>"></i>
-                            <span><?php echo esc_html($circle['backend_label'] ?? 'Backend'); ?></span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Soft Skills (ACTIVE) -->
-                <a href="?category=Soft Skills" class="skill-wedge-link skill-wedge-link-bottom">
-                    <div class="skill-wedge bottom active">
-                        <div class="wedge-content">
-                            <i class="fa-solid <?php echo esc_attr($circle['soft_icon'] ?? ''); ?>"></i>
-                            <span><?php echo esc_html($circle['soft_label'] ?? 'Soft Skills'); ?></span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Database -->
-                <a href="?category=Database" class="skill-wedge-link skill-wedge-link-left">
-                    <div class="skill-wedge left">
-                        <div class="wedge-content">
-                            <i class="fa-solid <?php echo esc_attr($circle['database_icon'] ?? ''); ?>"></i>
-                            <span><?php echo esc_html($circle['database_label'] ?? 'Database'); ?></span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Center -->
-                <div class="skills-inner-circle">
-                    <span>Skills</span>
                 </div>
-
             </div>
-
-            <div class="outer-ring-decoration"></div>
-        </div>
-
-        <!-- RIGHT: SKILL BARS -->
-        <div class="soft-skills-card">
-
-            <div class="card-header">
-                <h2><?php echo esc_html($active_category); ?></h2>
-                <i class="fa-solid <?php echo esc_attr($circle['soft_icon'] ?? ''); ?> decorative-icon"></i>
-            </div>
-
-            <div class="progress-container">
-
-                <?php foreach ($skills as $skill): ?>
-                    <?php if (!empty($skill['name'])): ?>
-                        <div class="skill-bar-item">
-                            <div class="skill-info">
-                                <span><?php echo esc_html($skill['name']); ?></span>
-                                <span><?php echo esc_html($skill['percent']); ?>%</span>
-                            </div>
-
-                            <div class="progress-line">
-                                <div class="fill" style="width: <?php echo esc_attr($skill['percent']); ?>%;"></div>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-
-            </div>
+            <?php endforeach; ?>
 
         </div>
 

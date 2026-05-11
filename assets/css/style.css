@@ -490,144 +490,116 @@ body {
 /* --- Layout Container --- */
 .skills-section {
     padding: 60px 5%;
-    background-color: #faf9ff;
+    background-color: #F5EBE0;
 }
 
 .skills-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* This keeps both columns visible */
-    align-items: center;
-    gap: 60px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* --- LEFT SIDE: CLOUD DESIGN --- */
-.skills-circle-wrapper {
-    position: relative;
-    width: var(--circle-size);
-    height: var(--circle-size);
-    display: flex;
+/* --- FLIP CARDS ROW --- */
+.flip-cards-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
     justify-content: center;
-    align-items: center;
 }
 
-.skills-pie-container {
+/* Flip Card Container */
+.flip-card {
+    width: 100%;
+    height: 320px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.flip-card-inner {
     position: relative;
     width: 100%;
     height: 100%;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
 }
 
-.skill-wedge {
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front & Back Faces */
+.flip-card-front,
+.flip-card-back {
     position: absolute;
-    width: 48%;
-    height: 48%;
-    background-color: #FDE2CC;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    
-    /* Cloud Mask */
-    -webkit-mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M25,10 C15,10 5,20 5,35 C5,50 15,55 10,70 C5,85 20,95 40,90 C55,95 75,95 85,80 C95,65 95,45 85,30 C85,10 65,5 50,15 C40,5 25,5 25,10 Z" fill="black"/></svg>');
-    mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M25,10 C15,10 5,20 5,35 C5,50 15,55 10,70 C5,85 20,95 40,90 C55,95 75,95 85,80 C95,65 95,45 85,30 C85,10 65,5 50,15 C40,5 25,5 25,10 Z" fill="black"/></svg>');
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-}
-
-/* Positioning & Rotation for Organic Look */
-.skill-wedge.top { top: 0; left: 0; --rot: -5deg; transform: rotate(-5deg); }
-.skill-wedge.right { top: 0; right: 0; --rot: 85deg; transform: rotate(85deg); }
-.skill-wedge.bottom { bottom: 0; left: 0; --rot: -95deg; transform: rotate(-95deg); }
-.skill-wedge.left { bottom: 0; right: 0; --rot: 175deg; transform: rotate(175deg); }
-
-.wedge-content {
-    transform: rotate(var(--correction, 5deg));
-    text-align: center;
-    color: var(--text-main);
-    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    font-size: 35px;
-}
-
-/* Correcting text rotation based on parent rotation */
-.skill-wedge.right .wedge-content { --correction: -85deg; }
-.skill-wedge.bottom .wedge-content { --correction: 95deg; }
-.skill-wedge.left .wedge-content { --correction: -175deg; }
-
-.skills-inner-circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 140px;
-    height: 140px;
-    background: #FDE2CC;
-    z-index: 20;
-    display: flex;
     justify-content: center;
-    align-items: center;
-    font-weight: 800;
-    font-size: 20px;
-    color: #85531E;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    -webkit-mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,10 C30,10 20,25 20,40 C10,45 5,60 15,75 C25,90 45,90 50,80 C55,90 75,90 85,75 C95,60 90,45 80,40 C80,25 70,10 50,10 Z" fill="black"/></svg>');
-    mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,10 C30,10 20,25 20,40 C10,45 5,60 15,75 C25,90 45,90 50,80 C55,90 75,90 85,75 C95,60 90,45 80,40 C80,25 70,10 50,10 Z" fill="black"/></svg>');
+    padding: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
 }
 
-.skill-wedge:hover {
-    background-color: #dcd1ff;
-    transform: scale(1.08) rotate(var(--rot, 0deg));
+/* Front Face: Category Icon & Name */
+.flip-card-front {
+    background: #AB9A91;
+    color: #F5EBE0;
 }
 
-/* --- RIGHT SIDE: PILL LIST --- */
-.soft-skills-card {
-    background: transparent;
+.flip-card-front i {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.flip-card-front span {
+    font-size: 46px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Back Face: Skills List */
+.flip-card-back {
+    background: #AB9A91;
+    color: #F5EBE0;
+    transform: rotateY(180deg);
+    overflow-y: auto;
+    align-items: flex-start;
+}
+
+.flip-card-skills {
     width: 100%;
-    align-self: start; /* keep right column pinned to top of the grid */
-    margin-top: 0;
 }
 
-.card-header h2 { 
-    font-family: 'New Amsterdam', sans-serif; 
-    font-size: 2.8rem; 
-    margin-bottom: 40px;
-    color: #85531E;
-}
-
-.skill-bar-item {
-    background: #FDE2CC;
-    margin-bottom: 20px;
-    padding: 25px 30px;
+.flip-card-back .skill-bar-item {
+    background: rgba(255,255,255,0.15);
+    margin-bottom: 30px;
+    padding: 12px 16px;
     border-radius: 100px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-.skill-info {
+.flip-card-back .skill-info {
     display: flex;
     justify-content: space-between;
-    font-weight: 800;
-    color: #85531E;
-    margin-bottom: 12px;
-    font-size: 20px;
+    font-weight: 600;
+    color: #F5EBE0;
+    margin-bottom: 6px;
+    font-size: 24px;
 }
 
-.progress-line {
+.flip-card-back .progress-line {
     width: 100%;
-    height: 6px;
-    background: #85531E;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
     border-radius: 10px;
 }
 
-.fill {
+.flip-card-back .fill {
     height: 100%;
-    background: #85531E;
+    background: #F5EBE0;
     border-radius: 10px;
 }

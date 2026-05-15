@@ -3,6 +3,8 @@
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=New+Amsterdam&display=swap" rel="stylesheet">
 
     <?php wp_head(); ?>
 </head>
@@ -10,11 +12,13 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<?php if ( ! is_front_page() ) : ?>
+
 <header class="navbar">
 
     <!-- LOGO -->
     <div class="logo">
-        <img src="<?php echo get_template_directory_uri(); ?>/images/QRB3.png" alt="Logo">
+        <img src="<?php echo get_template_directory_uri(); ?>/images/white.png" alt="Logo">
     </div>
 
     <!-- NAVIGATION -->
@@ -58,5 +62,6 @@
     </nav>
 
 </header>
+<?php endif; ?>
 
 <main class="site-main">

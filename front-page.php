@@ -71,10 +71,10 @@ $email      = get_field( 'social_email' );
                 <nav class="circular-nav">
                     <div class="svg-line-wrapper">
                         <svg viewBox="0 0 500 500" class="svg-path-and-dots">
-                            <path class="nav-curve-path" d="M 250,10 A 240,240 0 0 1 250,490" fill="none" stroke="#f3b431" stroke-width="4"/>
+                            <path class="nav-curve-path" d="M 250,10 A 240,240 0 0 1 250,490" fill="none" stroke="#FC7E00" stroke-width="4"/>
                             
-                            <circle class="curve-end-dot dot-top" cx="250" cy="10" r="5" fill="#f3b431" />
-                            <circle class="curve-end-dot dot-bottom" cx="250" cy="490" r="5" fill="#f3b431" />
+                            <circle class="curve-end-dot dot-top" cx="250" cy="10" r="5" fill="#FC7E00" />
+                            <circle class="curve-end-dot dot-bottom" cx="250" cy="490" r="5" fill="#FC7E00" />
                         </svg>
                     </div>
                     
@@ -104,7 +104,9 @@ $works = new WP_Query(array(
 ?>
 
 <section class="works-portfolio-wrapper">
+
     <aside class="portfolio-sidebar">
+        
         <div class="sidebar-top">
             <div class="profile-circle-frame">
                 <?php 
@@ -116,7 +118,7 @@ $works = new WP_Query(array(
                 <?php endif; ?>
             </div>
         </div>
-        
+
         <nav class="sidebar-nav-menu">
             <ul>
                 <li><a href="#about">ABOUT</a></li>
@@ -126,21 +128,29 @@ $works = new WP_Query(array(
                 <li><a href="#contact">CONTACT</a></li>
             </ul>
         </nav>
+
     </aside>
 
+
     <main class="portfolio-main-content">
+
         <div class="header-area">
+
             <div class="title-with-arrow">
-                <span class="arrow-symbol">→</span>
+                <div class="line-arrow"></div>
                 <h1 class="main-title">MY wORKS</h1>
             </div>
-            
+
+
             <div class="filter-tabs">
+                <span class="tab highlight" data-filter="all">ALL</span>
                 <span class="tab" data-filter="in-campus">IN-CAMPUS</span>
                 <span class="tab" data-filter="off-campus">OFF-CAMPUS</span>
-                <span class="tab highlight" data-filter="capstone">CAPSTONE PROJECT</span>
+                <span class="tab" data-filter="capstone">CAPSTONE PROJECT</span>
             </div>
+
         </div>
+
 
         <div class="projects-grid">
 
@@ -150,19 +160,21 @@ $works = new WP_Query(array(
                     <?php
                         $title = get_the_title();
 
-                        // CATEGORY MAPPING (based on your system names)
                         $category = '';
 
                         if (stripos($title, 'Loan Management System') !== false) {
                             $category = 'off-campus';
-                        } elseif (stripos($title, 'HR Information System') !== false) {
+                        } 
+                        elseif (stripos($title, 'HR Information System') !== false) {
                             $category = 'in-campus';
-                        } elseif (stripos($title, 'Thescap Management System') !== false) {
+                        } 
+                        elseif (stripos($title, 'Thescap Management System') !== false) {
                             $category = 'capstone';
                         }
                     ?>
 
                     <div class="project-card" data-category="<?php echo esc_attr($category); ?>">
+
                         <div class="project-img-box">
                             <?php
                             $logo = get_field('work_logo');
@@ -175,26 +187,36 @@ $works = new WP_Query(array(
                             <h3><?php the_title(); ?></h3>
                             <p><?php echo get_field('work_subtitle'); ?></p>
                         </div>
+
                     </div>
 
                 <?php endwhile; wp_reset_postdata(); ?>
+
             <?php else : ?>
+
                 <p class="fallback-msg">No works found.</p>
+
             <?php endif; ?>
 
         </div>
+
     </main>
 
+
     <aside class="right-icon-bar">
+
         <ul class="work-nav-icons">
-            <li style="--icon-index:1;"><a href="#about"><i class="fa-solid fa-user-tie"></i></a></li>
-            <li style="--icon-index:2;"><a href="#works"><i class="fa-solid fa-code"></i></a></li>
-            <li style="--icon-index:3;"><a href="#skills"><i class="fa-solid fa-gears"></i></a></li>
-            <li style="--icon-index:4;"><a href="#certificates"><i class="fa-solid fa-award"></i></a></li>
-            <li style="--icon-index:5;"><a href="#contact"><i class="fa-solid fa-envelope-open-text"></i></a></li>
+            <li><a href="#about"><i class="fa-solid fa-user-tie"></i></a></li>
+            <li><a href="#works"><i class="fa-solid fa-code"></i></a></li>
+            <li><a href="#skills"><i class="fa-solid fa-gears"></i></a></li>
+            <li><a href="#certificates"><i class="fa-solid fa-award"></i></a></li>
+            <li><a href="#contact"><i class="fa-solid fa-envelope-open-text"></i></a></li>
         </ul>
+
     </aside>
+
 </section>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -203,30 +225,40 @@ document.addEventListener("DOMContentLoaded", function () {
     const cards = document.querySelectorAll(".project-card");
 
     function filterCards(filter) {
+
         cards.forEach(card => {
+
             const category = card.getAttribute("data-category");
 
-            if (filter === "all" || category === filter) {
+            if(filter === "all" || category === filter){
                 card.style.display = "block";
-            } else {
+            }
+            else{
                 card.style.display = "none";
             }
+
         });
+
     }
 
-    tabs.forEach(tab => {
-        tab.addEventListener("click", function () {
 
-            // remove active highlight
+    tabs.forEach(tab => {
+
+        tab.addEventListener("click", function(){
+
             tabs.forEach(t => t.classList.remove("highlight"));
+
             this.classList.add("highlight");
 
             const filter = this.getAttribute("data-filter");
+
             filterCards(filter);
+
         });
+
     });
 
-    // default view (Capstone)
+
     filterCards("capstone");
 
 });

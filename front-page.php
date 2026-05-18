@@ -112,7 +112,7 @@ $works = new WP_Query(array(
                 if( $hero_img ): ?>
                     <img src="<?php echo esc_url($hero_img['url']); ?>" alt="Profile">
                 <?php else: ?>
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/QRB4.jpg" alt="Profile">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/yellow.PNG" alt="Profile">
                 <?php endif; ?>
             </div>
         </div>
@@ -136,16 +136,33 @@ $works = new WP_Query(array(
             </div>
             
             <div class="filter-tabs">
-                <span class="tab">IN-CAMPUS </span>
-                <span class="tab">OFF-CAMPUS </span>
-                <span class="tab highlight">CAPSTONE PROJECT</span>
+                <span class="tab" data-filter="in-campus">IN-CAMPUS</span>
+                <span class="tab" data-filter="off-campus">OFF-CAMPUS</span>
+                <span class="tab highlight" data-filter="capstone">CAPSTONE PROJECT</span>
             </div>
         </div>
 
         <div class="projects-grid">
+
             <?php if ($works->have_posts()) : ?>
                 <?php while ($works->have_posts()) : $works->the_post(); ?>
-                    <div class="project-card">
+
+                    <?php
+                        $title = get_the_title();
+
+                        // CATEGORY MAPPING (based on your system names)
+                        $category = '';
+
+                        if (stripos($title, 'Loan Management System') !== false) {
+                            $category = 'off-campus';
+                        } elseif (stripos($title, 'HR Information System') !== false) {
+                            $category = 'in-campus';
+                        } elseif (stripos($title, 'Thescap Management System') !== false) {
+                            $category = 'capstone';
+                        }
+                    ?>
+
+                    <div class="project-card" data-category="<?php echo esc_attr($category); ?>">
                         <div class="project-img-box">
                             <?php
                             $logo = get_field('work_logo');
@@ -153,15 +170,18 @@ $works = new WP_Query(array(
                                 <img src="<?php echo esc_url($logo['url']); ?>" alt="">
                             <?php endif; ?>
                         </div>
+
                         <div class="project-overlay">
                             <h3><?php the_title(); ?></h3>
                             <p><?php echo get_field('work_subtitle'); ?></p>
                         </div>
                     </div>
+
                 <?php endwhile; wp_reset_postdata(); ?>
             <?php else : ?>
                 <p class="fallback-msg">No works found.</p>
             <?php endif; ?>
+
         </div>
     </main>
 
@@ -175,6 +195,42 @@ $works = new WP_Query(array(
         </ul>
     </aside>
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const tabs = document.querySelectorAll(".filter-tabs .tab");
+    const cards = document.querySelectorAll(".project-card");
+
+    function filterCards(filter) {
+        cards.forEach(card => {
+            const category = card.getAttribute("data-category");
+
+            if (filter === "all" || category === filter) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener("click", function () {
+
+            // remove active highlight
+            tabs.forEach(t => t.classList.remove("highlight"));
+            this.classList.add("highlight");
+
+            const filter = this.getAttribute("data-filter");
+            filterCards(filter);
+        });
+    });
+
+    // default view (Capstone)
+    filterCards("capstone");
+
+});
+</script>
 
 <?php
 $circle = get_field('skills_circle') ?: [];

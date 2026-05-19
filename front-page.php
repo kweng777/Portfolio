@@ -114,7 +114,7 @@ $works = new WP_Query(array(
                 if( $hero_img ): ?>
                     <img src="<?php echo esc_url($hero_img['url']); ?>" alt="Profile">
                 <?php else: ?>
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/yellow.PNG" alt="Profile">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/orange.PNG" alt="Profile">
                 <?php endif; ?>
             </div>
         </div>
@@ -143,8 +143,7 @@ $works = new WP_Query(array(
 
 
             <div class="filter-tabs">
-                <span class="tab highlight" data-filter="all">ALL</span>
-                <span class="tab" data-filter="in-campus">IN-CAMPUS</span>
+                <span class="tab highlight" data-filter="in-campus">IN-CAMPUS</span>
                 <span class="tab" data-filter="off-campus">OFF-CAMPUS</span>
                 <span class="tab" data-filter="capstone">CAPSTONE PROJECT</span>
             </div>
@@ -173,22 +172,73 @@ $works = new WP_Query(array(
                         }
                     ?>
 
+                    <?php
+                        $logo = get_field('work_logo');
+                        $work_description = get_field('work_description');
+                        $work_frontend = get_field('work_frontend');
+                        $work_backend = get_field('work_backend');
+                        $work_database = get_field('work_database');
+                        $work_role_description = get_field('work_role_description');
+                    ?>
+
                     <div class="project-card" data-category="<?php echo esc_attr($category); ?>">
 
-                        <div class="project-img-box">
-                            <?php
-                            $logo = get_field('work_logo');
-                            if ($logo): ?>
-                                <img src="<?php echo esc_url($logo['url']); ?>" alt="">
-                            <?php endif; ?>
-                        </div>
+                    <!-- LEFT SIDE -->
+                    <div class="project-card-left">
+                        <?php if ($work_description): ?>
+                            <div class="project-item-with-icon">
+                                <span class="project-label">About</span>
+                                <p class="project-description">
+                                    <?php echo esc_html($work_description); ?>
+                                </p>
+                            </div>
+                        <?php endif; ?>
 
-                        <div class="project-overlay">
-                            <h3><?php the_title(); ?></h3>
-                            <p><?php echo get_field('work_subtitle'); ?></p>
-                        </div>
+                        <?php if ($work_role_description): ?>
+                            <div class="project-item-with-icon">
+                                <span class="project-label">Role</span>
+                                <p class="project-description">
+                                    <?php echo esc_html($work_role_description); ?>
+                                </p>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ($work_frontend || $work_backend || $work_database): ?>
+                            <div class="project-item-with-icon">
+                                <span class="project-label">Uses</span>
+                                <div class="tech-stack-container">
+                                    <?php if ($work_frontend): ?>
+                                        <div class="tech-stack-bar">Frontend: <?php echo esc_html($work_frontend); ?></div>
+                                    <?php endif; ?>
+                                    <?php if ($work_backend): ?>
+                                        <div class="tech-stack-bar">Backend: <?php echo esc_html($work_backend); ?></div>
+                                    <?php endif; ?>
+                                    <?php if ($work_database): ?>
+                                        <div class="tech-stack-bar">Database: <?php echo esc_html($work_database); ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        
+                    </div>
+
+                    <!-- RIGHT SIDE -->
+                    <div class="project-card-right">
+
+                        <?php if ($logo): ?>
+                            <img src="<?php echo esc_url($logo['url']); ?>" alt="<?php echo esc_attr(get_the_title()); ?> logo">
+                        <?php endif; ?>
+
+                        <h3 class="project-title"><?php the_title(); ?></h3>
+
+                        <p class="project-subtitle">
+                            <?php echo get_field('work_subtitle'); ?>
+                        </p>
 
                     </div>
+
+                </div>
 
                 <?php endwhile; wp_reset_postdata(); ?>
 
@@ -219,49 +269,54 @@ $works = new WP_Query(array(
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+;(function(){
+    function init(){
+        const tabs = document.querySelectorAll(".filter-tabs .tab");
+        console.log('[front-page] filter script initialized', { tabs: tabs.length });
 
-    const tabs = document.querySelectorAll(".filter-tabs .tab");
-    const cards = document.querySelectorAll(".project-card");
+        function normalize(text){
+            return (text || '').toString().toLowerCase().replace(/\s+/g,'-').trim();
+        }
 
-    function filterCards(filter) {
+        function filterCards(filter) {
+            const cards = document.querySelectorAll(".project-card");
+            const filterNorm = normalize(filter);
+            console.log('[front-page] filterCards()', { filter, filterNorm, cards: cards.length });
+            cards.forEach(card => {
+                const category = card.getAttribute("data-category") || '';
+                const catNorm = normalize(category);
+                const titleEl = card.querySelector('.project-title');
+                const titleNorm = normalize(titleEl ? titleEl.textContent : '');
 
-        cards.forEach(card => {
+                // match by normalized category or title text; keep layout intact
+                if(filterNorm === "all" || catNorm.includes(filterNorm) || titleNorm.includes(filterNorm)) {
+                    card.classList.remove('filtered-hidden');
+                } else {
+                    card.classList.add('filtered-hidden');
+                }
+            });
+        }
 
-            const category = card.getAttribute("data-category");
-
-            if(filter === "all" || category === filter){
-                card.style.display = "block";
-            }
-            else{
-                card.style.display = "none";
-            }
-
+        tabs.forEach(tab => {
+            tab.addEventListener("click", function(){
+                tabs.forEach(t => t.classList.remove("highlight"));
+                this.classList.add("highlight");
+                const filter = this.getAttribute("data-filter");
+                console.log('[front-page] tab clicked', { filter });
+                filterCards(filter);
+            });
         });
 
+        // preserve original default behavior
+        filterCards("capstone");
     }
 
-
-    tabs.forEach(tab => {
-
-        tab.addEventListener("click", function(){
-
-            tabs.forEach(t => t.classList.remove("highlight"));
-
-            this.classList.add("highlight");
-
-            const filter = this.getAttribute("data-filter");
-
-            filterCards(filter);
-
-        });
-
-    });
-
-
-    filterCards("capstone");
-
-});
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
 </script>
 
 <?php

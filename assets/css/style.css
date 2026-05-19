@@ -186,7 +186,7 @@
     height: 100%;
     border-radius: 50%;
     overflow: hidden;
-    border: 1px solid #FF9830;
+    border: 1px solid #fff;
     z-index: 2;
     position: relative;
 }
@@ -305,7 +305,7 @@
 
 .sidebar-top {
     background-color: #000; /* Dark gray top section */
-    padding: 30px;
+    padding: 25px;
     display: flex;
     justify-content: center;
 }
@@ -314,7 +314,7 @@
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    border: 3px solid #FC7E00;
+    border: 3px solid #fff;
     overflow: hidden;
 }
 
@@ -326,29 +326,95 @@
 
 .sidebar-nav-menu ul {
     list-style: none;
-    padding: 40px 0;
+    padding: 60px 0;
     text-align: center;
+    position: relative;
+    
+}
+
+/* Top line segment above "about" */
+.sidebar-nav-menu ul::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    height: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background-color: #000;
+    margin-top: 25px;
+    
+}
+
+/* Top circle point above "about" */
+.sidebar-nav-menu ul::after {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background-color: #000;
+    border-radius: 50%;
+}
+
+/* Bottom line segment below "contact" */
+.sidebar-nav-menu ul li:last-child::before {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    height: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background-color: #000;
+    margin-bottom: 44px;
+}
+
+/* Bottom circle point below "contact" */
+.sidebar-nav-menu ul li:last-child::after {
+    content: '';
+    position: absolute;
+    bottom: 51px;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 8px;
+    height: 8px;
+    background-color: #000;
+    border-radius: 50%;
 }
 
 .sidebar-nav-menu li a {
     text-decoration: none;
     color: #000;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
+    font-weight: 900;
     display: block;
     padding: 10px 0;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    font-family: 'Bebas Neue', sans-serif;
 }
 
 .sidebar-nav-menu li a.active {
     color: #fff;
 }
 
+/* Increase vertical gap between sidebar nav items without changing layout */
+.sidebar-nav-menu ul li {
+    margin-bottom: 10px;
+}
+
+
+
+
 /* Main Content Styling */
 .portfolio-main-content {
     flex: 1;
     padding: 15px;
-    margin-left:auto;
-    width:70%;
+    margin-left: auto;
+    width: auto; /* allow content to expand so project-card can reach its max-width */
+    max-width: calc(100% - 280px); /* account for 200px sidebar + 80px right icon bar */
 }
 
 .title-with-arrow{
@@ -425,32 +491,150 @@
     flex-direction:column;
     width:100%;
 }
-
-/* Grid Styling */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-}
-
 .project-card {
-    position: relative;
-    background: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch; /* IMPORTANT: keeps both sides aligned */
+    gap: 40px;
+    padding: 34px;
+    background: #f1f1f1;
     border-radius: 20px;
-    overflow: hidden;
-    width: 100%;          
-    max-width: 460px;     
-    height: 320px;        
-    margin: auto;
-    transform: translateX(40px)     
+    width: 100%;
+    max-width: 1100px;
+    min-height: 380px;
+    box-sizing: border-box;
+    margin-left: 60px;
 }
 
-.project-img-box {
+/* Ensure the card columns never wrap and keep predictable widths */
+.project-card {
+    flex-wrap: nowrap;
+}
+
+.project-card-left {
+    flex: 1 1 auto; /* grow to fill remaining space */
+    min-width: 0; /* allow content to shrink properly inside flex */
+}
+
+.project-card-right {
+    flex: 0 0 320px; /* fixed right column width for logo/title/subtitle */
+}
+
+.project-description {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+}
+
+/* Responsive: stack on narrow screens */
+@media (max-width: 900px) {
+    .project-card {
+        flex-direction: column;
+        max-width: 720px;
+        gap: 20px;
+        padding: 24px;
+        align-items: center;
+    }
+
+    .project-card-left, .project-card-right {
+        flex: none;
+        width: 100%;
+        text-align: center;
+    }
+
+    .project-card-right img { max-width: 220px; }
+}
+
+/* LEFT SIDE */
+.project-card-left {
+    flex: 1;
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.project-description {
+    margin: 0;
+    color: #333;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    max-width: 95%;
+    text-align: justify;
+}
+
+/* Project item with icon container */
+.project-item-with-icon {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+/* Project label styling */
+.project-label {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    background: #000;
+    border-radius: 4px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* Tech Stack Container - Horizontal layout */
+.tech-stack-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 1px;
+    flex-wrap: wrap;
+}
+
+/* Tech Stack Bar - Status-bar design */
+.tech-stack-bar {
+    background: transparent;
+    color: #000;
+    padding: 6px 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    letter-spacing: 1.9px;
+    display: inline-block;
+    border: 2px solid #000;
+}
+
+/* RIGHT SIDE */
+.project-card-right {
+    flex: 0 0 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* IMPORTANT: center content vertically */
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+/* IMAGE */
+.project-card-right img {
+    width: 100%;
+    max-width: 260px;
+    height: auto;
     object-fit: contain;
+    display: block;
+}
+
+/* TITLE */
+.project-card-right h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    line-height: 1.2;
+}
+
+/* SUBTITLE */
+.project-subtitle {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 /* --- Right Icon Bar Layout --- */
@@ -469,11 +653,11 @@
 /* --- Circular Icon Container Design --- */
 .work-nav-icons {
     list-style: none;
-    padding: 60px 0; /* Creates space for the line extensions at top and bottom */
+    padding: 70px 0; /* Creates space for the line extensions at top and bottom - increased height */
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px; 
+    gap: 45px; /* Increased gap between icons */
     position: relative; /* Anchor for the continuous line and dots */
     z-index: 10;
 }
@@ -498,8 +682,8 @@
     top: 0;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 6px;   
-    height: 6px;
+    width: 8px;   
+    height: 8px;
     background-color: #000;
     border-radius: 50%;
 }
@@ -508,11 +692,11 @@
 .work-nav-icons li:last-child::after {
     content: '';
     position: absolute;
-    bottom: -60px; /* Matches the padding-bottom of .work-nav-icons */
+    bottom: -70px; /* Matches the padding-bottom of .work-nav-icons */
     left: 50%;
     transform: translate(-50%, 50%);
-    width: 6px;  
-    height: 6px;
+    width: 8px;  
+    height: 8px;
     background-color: #000;
     border-radius: 50%;
 }
@@ -544,7 +728,7 @@
 /* --- Hover Effect --- */
 .work-nav-icons a:hover {
     background: #FC7E00;
-    color: #000;
+    color: #fff;
     transform: scale(1.1);
 }
 
@@ -664,4 +848,29 @@
     height: 100%;
     background: #F5EBE0;
     border-radius: 10px;
+}
+
+/* Strong override to ensure two-column layout on desktop */
+@media (min-width: 901px) {
+    .project-card {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: stretch !important;
+        gap: 40px !important;
+    }
+
+    .project-card-left {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+    }
+
+    .project-card-right {
+        flex: 0 0 320px !important;
+    }
+}
+
+/* Hide cards filtered by JS (needs !important to override other rules) */
+.project-card.filtered-hidden {
+    display: none !important;
 }

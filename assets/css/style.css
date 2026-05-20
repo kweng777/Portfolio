@@ -285,7 +285,7 @@
 .works-portfolio-wrapper {
     display: flex;
     background-color: #e6e5e5; /* Light gray background from reference */
-    min-height: 100vh;
+    min-height: 90vh;
     font-family: New Amsterdam;
     font-style:normal;
     font-weight:900;
@@ -402,7 +402,7 @@
 
 /* Increase vertical gap between sidebar nav items without changing layout */
 .sidebar-nav-menu ul li {
-    margin-bottom: 10px;
+    margin-bottom: 22px;
 }
 
 
@@ -415,6 +415,17 @@
     margin-left: auto;
     width: auto; /* allow content to expand so project-card can reach its max-width */
     max-width: calc(100% - 280px); /* account for 200px sidebar + 80px right icon bar */
+}
+
+/* Skills section specific - white background */
+.works-portfolio-wrapper:has(.skills-section) .portfolio-main-content {
+    background-color: #fff;
+    min-height: 100vh;
+}
+
+/* Skills section specific - right icon bar white background */
+.works-portfolio-wrapper:has(.skills-section) .right-icon-bar {
+    background-color: #fff;
 }
 
 .title-with-arrow{
@@ -735,13 +746,13 @@
 
 /* --- Layout Container --- */
 .skills-section {
-    padding: 60px 5%;
-    background-color: #F7F3E8;
+    padding: 20px 0;
+    margin-top: 100px;
 }
 
 .skills-container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0;
 }
 
 /* --- FLIP CARDS ROW --- */
@@ -791,8 +802,8 @@
 
 /* Front Face: Category Icon & Name */
 .flip-card-front {
-    background: #DCC9A7;
-    color: #F7F3E8;
+    background: #000;
+    color: #FC7E00;
 }
 
 .flip-card-front i {
@@ -808,8 +819,8 @@
 
 /* Back Face: Skills List */
 .flip-card-back {
-    background: #DCC9A7;
-    color: #F7F3E8;
+    background: #000;
+    color: #FC7E00;
     transform: rotateY(180deg);
     overflow-y: auto;
     align-items: flex-start;
@@ -832,7 +843,7 @@
     display: flex;
     justify-content: space-between;
     font-weight: 600;
-    color: #F5EBE0;
+    color: #FC7E00;
     margin-bottom: 6px;
     font-size: 24px;
 }
@@ -846,7 +857,7 @@
 
 .flip-card-back .fill {
     height: 100%;
-    background: #F5EBE0;
+    background: #FC7E00;
     border-radius: 10px;
 }
 
@@ -873,4 +884,14 @@
 /* Hide cards filtered by JS (needs !important to override other rules) */
 .project-card.filtered-hidden {
     display: none !important;
+}
+
+/* --- Certificates Section --- */
+.certificates-section {
+    padding: 20px 0;
+}
+
+.certificates-section .container {
+    max-width: 100%;
+    padding: 0;
 }

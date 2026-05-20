@@ -387,50 +387,103 @@ $categories = [
 ];
 ?>
 
-<section class="skills-section">
-    <div class="skills-container">
+<section class="works-portfolio-wrapper">
 
-        <!-- FLIP CARDS ROW -->
-        <div class="flip-cards-row">
-
-            <?php foreach ($categories as $cat):
-                $cat_skills = get_skills_by_category($cat['label']);
-            ?>
-            <div class="flip-card">
-                <div class="flip-card-inner">
-
-                    <!-- FRONT: Category Icon & Name -->
-                    <div class="flip-card-front">
-                        <i class="fa-solid <?php echo esc_attr($cat['icon']); ?>"></i>
-                        <span><?php echo esc_html($cat['label']); ?></span>
-                    </div>
-
-                    <!-- BACK: Skills List -->
-                    <div class="flip-card-back">
-                        <div class="flip-card-skills">
-                            <?php foreach ($cat_skills as $skill): ?>
-                                <?php if (!empty($skill['name'])): ?>
-                                    <div class="skill-bar-item">
-                                        <div class="skill-info">
-                                            <span><?php echo esc_html($skill['name']); ?></span>
-                                            <span><?php echo esc_html($skill['percent']); ?>%</span>
-                                        </div>
-                                        <div class="progress-line">
-                                            <div class="fill" style="width: <?php echo esc_attr($skill['percent']); ?>%;"></div>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-
-                </div>
+    <aside class="portfolio-sidebar">
+        
+        <div class="sidebar-top">
+            <div class="profile-circle-frame">
+                <?php 
+                $hero_img = get_field('hero_image');
+                if( $hero_img ): ?>
+                    <img src="<?php echo esc_url($hero_img['url']); ?>" alt="Profile">
+                <?php else: ?>
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/orange.PNG" alt="Profile">
+                <?php endif; ?>
             </div>
-            <?php endforeach; ?>
+        </div>
+
+        <nav class="sidebar-nav-menu">
+            <ul>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#works">WORKS</a></li>
+                <li><a href="#skills" class="active">SKILLS</a></li>
+                <li><a href="#certificates">CERTIFICATES</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </nav>
+
+    </aside>
+
+    <main class="portfolio-main-content">
+
+        <div class="header-area">
+
+            <div class="title-with-arrow">
+                <div class="line-arrow"></div>
+                <h1 class="main-title">MY SKILLS</h1>
+            </div>
 
         </div>
 
-    </div>
+        <div class="skills-section">
+
+                <!-- FLIP CARDS ROW -->
+                <div class="flip-cards-row">
+
+                    <?php foreach ($categories as $cat):
+                        $cat_skills = get_skills_by_category($cat['label']);
+                    ?>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+
+                            <!-- FRONT: Category Icon & Name -->
+                            <div class="flip-card-front">
+                                <i class="fa-solid <?php echo esc_attr($cat['icon']); ?>"></i>
+                                <span><?php echo esc_html($cat['label']); ?></span>
+                            </div>
+
+                            <!-- BACK: Skills List -->
+                            <div class="flip-card-back">
+                                <div class="flip-card-skills">
+                                    <?php foreach ($cat_skills as $skill): ?>
+                                        <?php if (!empty($skill['name'])): ?>
+                                            <div class="skill-bar-item">
+                                                <div class="skill-info">
+                                                    <span><?php echo esc_html($skill['name']); ?></span>
+                                                    <span><?php echo esc_html($skill['percent']); ?>%</span>
+                                                </div>
+                                                <div class="progress-line">
+                                                    <div class="fill" style="width: <?php echo esc_attr($skill['percent']); ?>%;"></div>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+
+                </div>
+
+        </div>
+
+    </main>
+
+    <aside class="right-icon-bar">
+
+        <ul class="work-nav-icons">
+            <li><a href="#about"><i class="fa-solid fa-user-tie"></i></a></li>
+            <li><a href="#works"><i class="fa-solid fa-code"></i></a></li>
+            <li><a href="#skills"><i class="fa-solid fa-gears"></i></a></li>
+            <li><a href="#certificates"><i class="fa-solid fa-award"></i></a></li>
+            <li><a href="#contact"><i class="fa-solid fa-envelope-open-text"></i></a></li>
+        </ul>
+
+    </aside>
+
 </section>
 
 <?php
@@ -444,19 +497,72 @@ $certs = new WP_Query( array(
 ?>
 
 <?php if ( $certs->have_posts() ) : ?>
-<section class="section section--certificates" id="certificates">
-    <div class="container">
-        <h2 class="section__title">Certificates</h2>
-        <p class="section__subtitle">Certifications & achievements</p>
-        <div class="certificates-grid">
-            <?php while ( $certs->have_posts() ) : $certs->the_post(); ?>
-                <?php get_template_part( 'template-parts/card', 'certificate' ); ?>
-            <?php endwhile; wp_reset_postdata(); ?>
+<section class="works-portfolio-wrapper">
+
+    <aside class="portfolio-sidebar">
+        
+        <div class="sidebar-top">
+            <div class="profile-circle-frame">
+                <?php 
+                $hero_img = get_field('hero_image');
+                if( $hero_img ): ?>
+                    <img src="<?php echo esc_url($hero_img['url']); ?>" alt="Profile">
+                <?php else: ?>
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/orange.PNG" alt="Profile">
+                <?php endif; ?>
+            </div>
         </div>
-        <div class="section__cta">
-            <a href="<?php echo get_post_type_archive_link( 'certificate' ); ?>" class="btn btn--outline">View All Certificates</a>
+
+        <nav class="sidebar-nav-menu">
+            <ul>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#works">WORKS</a></li>
+                <li><a href="#skills">SKILLS</a></li>
+                <li><a href="#certificates" class="active">CERTIFICATES</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </nav>
+
+    </aside>
+
+    <main class="portfolio-main-content">
+
+        <div class="header-area">
+
+            <div class="title-with-arrow">
+                <div class="line-arrow"></div>
+                <h1 class="main-title">MY CERTIFICATES</h1>
+            </div>
+
         </div>
-    </div>
+
+        <div class="certificates-section">
+            <div class="container">
+                <div class="certificates-grid">
+                    <?php while ( $certs->have_posts() ) : $certs->the_post(); ?>
+                        <?php get_template_part( 'template-parts/card', 'certificate' ); ?>
+                    <?php endwhile; wp_reset_postdata(); ?>
+                </div>
+                <div class="section__cta">
+                    <a href="<?php echo get_post_type_archive_link( 'certificate' ); ?>" class="btn btn--outline">View All Certificates</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <aside class="right-icon-bar">
+
+        <ul class="work-nav-icons">
+            <li><a href="#about"><i class="fa-solid fa-user-tie"></i></a></li>
+            <li><a href="#works"><i class="fa-solid fa-code"></i></a></li>
+            <li><a href="#skills"><i class="fa-solid fa-gears"></i></a></li>
+            <li><a href="#certificates"><i class="fa-solid fa-award"></i></a></li>
+            <li><a href="#contact"><i class="fa-solid fa-envelope-open-text"></i></a></li>
+        </ul>
+
+    </aside>
+
 </section>
 <?php endif; ?>
 

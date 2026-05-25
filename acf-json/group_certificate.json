@@ -102,6 +102,27 @@
             "max_height": 0,
             "max_size": 0,
             "mime_types": ""
+        },
+        {
+            "key": "field_6a0d5930fb298",
+            "label": "Certificate Title",
+            "name": "certificate_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -118,10 +139,10 @@
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "hide_on_screen": [],
+    "hide_on_screen": "",
     "active": true,
     "description": "",
-    "show_in_rest": false,
+    "show_in_rest": 0,
     "display_title": "",
-    "modified": 1776760242
+    "modified": 1779259724
 }

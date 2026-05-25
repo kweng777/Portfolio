@@ -497,6 +497,7 @@ $certs = new WP_Query( array(
 ?>
 
 <?php if ( $certs->have_posts() ) : ?>
+<?php $certificate_lightbox_images = array(); ?>
 <section class="works-portfolio-wrapper">
 
     <aside class="portfolio-sidebar">
@@ -540,12 +541,30 @@ $certs = new WP_Query( array(
             <div class="container">
                 <div class="certificates-grid">
                     <?php while ( $certs->have_posts() ) : $certs->the_post(); ?>
+                        <?php
+                        $certificate_image = get_field( 'cert_image' );
+                        $certificate_full_image = '';
+
+                        if ( $certificate_image && ! empty( $certificate_image['url'] ) ) {
+                            $certificate_full_image = $certificate_image['url'];
+                        } elseif ( has_post_thumbnail() ) {
+                            $certificate_full_image = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+                        }
+
+                        $certificate_lightbox_images[] = array(
+                            'src' => $certificate_full_image,
+                            'alt' => get_the_title(),
+                        );
+                        ?>
                         <?php get_template_part( 'template-parts/card', 'certificate' ); ?>
                     <?php endwhile; wp_reset_postdata(); ?>
                 </div>
-                <div class="section__cta">
-                    <a href="<?php echo get_post_type_archive_link( 'certificate' ); ?>" class="btn btn--outline">View All Certificates</a>
+
+                <div class="certificate-lightbox" aria-hidden="true">
+                    <button type="button" class="certificate-lightbox__close" aria-label="Close certificate preview">&times;</button>
+                    <img class="certificate-lightbox__image" src="" alt="">
                 </div>
+                
             </div>
         </div>
 
@@ -564,6 +583,142 @@ $certs = new WP_Query( array(
     </aside>
 
 </section>
+<style>
+    .certificates-section .cert-card {
+        cursor: zoom-in;
+    }
+
+    .certificate-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(0, 0, 0, 0.78);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+    }
+
+    .certificate-lightbox.is-open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .certificate-lightbox__image {
+        display: block;
+        max-width: min(96vw, 1200px);
+        max-height: 92vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        background: #fff;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+        transform: scale(0.96);
+        transition: transform 0.2s ease;
+    }
+
+    .certificate-lightbox.is-open .certificate-lightbox__image {
+        transform: scale(1);
+    }
+
+    .certificate-lightbox__close {
+        position: absolute;
+        top: 18px;
+        right: 22px;
+        width: 44px;
+        height: 44px;
+        border: 0;
+        border-radius: 50%;
+        background: #FC7E00;
+        color: #fff;
+        font-size: 34px;
+        line-height: 40px;
+        cursor: pointer;
+    }
+
+    body.certificate-lightbox-open {
+        overflow: hidden;
+    }
+</style>
+<script>
+(function () {
+    const certificateImages = <?php echo wp_json_encode( $certificate_lightbox_images ); ?>;
+
+    function initCertificateLightbox() {
+        const section = document.querySelector('.certificates-section');
+        const lightbox = document.querySelector('.certificate-lightbox');
+
+        if (!section || !lightbox) {
+            return;
+        }
+
+        const cards = section.querySelectorAll('.certificates-grid .cert-card');
+        const lightboxImage = lightbox.querySelector('.certificate-lightbox__image');
+        const closeButton = lightbox.querySelector('.certificate-lightbox__close');
+
+        function closeLightbox() {
+            lightbox.classList.remove('is-open');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('certificate-lightbox-open');
+            lightboxImage.removeAttribute('src');
+            lightboxImage.setAttribute('alt', '');
+        }
+
+        function openLightbox(imageData, fallbackImage) {
+            const imageSrc = imageData && imageData.src ? imageData.src : fallbackImage.src;
+
+            if (!imageSrc) {
+                return;
+            }
+
+            lightboxImage.src = imageSrc;
+            lightboxImage.alt = imageData && imageData.alt ? imageData.alt : fallbackImage.alt;
+            lightbox.classList.add('is-open');
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('certificate-lightbox-open');
+            closeButton.focus();
+        }
+
+        cards.forEach(function (card, index) {
+            const cardImage = card.querySelector('.cert-card__image img');
+
+            if (!cardImage) {
+                return;
+            }
+
+            card.addEventListener('click', function (event) {
+                if (event.target.closest('a')) {
+                    return;
+                }
+
+                openLightbox(certificateImages[index], cardImage);
+            });
+        });
+
+        closeButton.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', function (event) {
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+                closeLightbox();
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCertificateLightbox);
+    } else {
+        initCertificateLightbox();
+    }
+})();
+</script>
 <?php endif; ?>
 
 <?php get_footer(); ?>

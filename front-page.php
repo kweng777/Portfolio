@@ -583,66 +583,6 @@ $certs = new WP_Query( array(
     </aside>
 
 </section>
-<style>
-    .certificates-section .cert-card {
-        cursor: zoom-in;
-    }
-
-    .certificate-lightbox {
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 24px;
-        background: rgba(0, 0, 0, 0.78);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s ease;
-    }
-
-    .certificate-lightbox.is-open {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    .certificate-lightbox__image {
-        display: block;
-        max-width: min(96vw, 1200px);
-        max-height: 92vh;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-        background: #fff;
-        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
-        transform: scale(0.96);
-        transition: transform 0.2s ease;
-    }
-
-    .certificate-lightbox.is-open .certificate-lightbox__image {
-        transform: scale(1);
-    }
-
-    .certificate-lightbox__close {
-        position: absolute;
-        top: 18px;
-        right: 22px;
-        width: 44px;
-        height: 44px;
-        border: 0;
-        border-radius: 50%;
-        background: #FC7E00;
-        color: #fff;
-        font-size: 34px;
-        line-height: 40px;
-        cursor: pointer;
-    }
-
-    body.certificate-lightbox-open {
-        overflow: hidden;
-    }
-</style>
 <script>
 (function () {
     const certificateImages = <?php echo wp_json_encode( $certificate_lightbox_images ); ?>;
@@ -720,5 +660,93 @@ $certs = new WP_Query( array(
 })();
 </script>
 <?php endif; ?>
+
+<section id="contact" class="works-portfolio-wrapper">
+
+    <aside class="portfolio-sidebar">
+        <div class="sidebar-top">
+            <div class="profile-circle-frame">
+                <?php 
+                $hero_img = get_field('hero_image');
+                if( $hero_img ): ?>
+                    <img src="<?php echo esc_url($hero_img['url']); ?>" alt="Profile">
+                <?php else: ?>
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/orange.PNG" alt="Profile">
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav-menu">
+            <ul>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#works">WORKS</a></li>
+                <li><a href="#skills">SKILLS</a></li>
+                <li><a href="#certificates">CERTIFICATES</a></li>
+                <li><a href="#contact" class="active">CONTACT</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="portfolio-main-content">
+
+        <div class="header-area">
+            <div class="title-with-arrow">
+                <div class="line-arrow"></div>
+                <h1 class="main-title">CONTACT ME</h1>
+            </div>
+        </div>
+
+        <div class="contact-card-container">
+            
+            <div class="contact-info-panel">
+                
+                <div class="info-item">
+                    <span class="info-icon"><i class="fa-solid fa-location-dot"></i></span>
+                    <p class="info-text">Krajowa 789,<br>80-800 Gdańsk<br>Poland</p>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-icon"><i class="fa-solid fa-phone"></i></span>
+                    <p class="info-text">+48 987 654 321</p>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-icon"><i class="fa-solid fa-envelope"></i></span>
+                    <p class="info-text">ipsum@example.pl</p>
+                </div>
+                
+                <div class="social-section">
+                    <p class="social-title">You can find us here too!</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <div class="form-header-text">
+                    <h3>Have Questions? Let's Get in Touch</h3>
+                </div>
+
+                <?php echo do_shortcode('[contact-form-7 id="57da92d" title="Contact form 1"]'); ?>
+            </div>
+
+        </div>
+
+    </main>
+
+    <aside class="right-icon-bar">
+        <ul class="work-nav-icons">
+            <li><a href="#about"><i class="fa-solid fa-user-tie"></i></a></li>
+            <li><a href="#works"><i class="fa-solid fa-code"></i></a></li>
+            <li><a href="#skills"><i class="fa-solid fa-gears"></i></a></li>
+            <li><a href="#certificates"><i class="fa-solid fa-award"></i></a></li>
+            <li><a href="#contact"><i class="fa-solid fa-envelope-open-text"></i></a></li>
+        </ul>
+    </aside>
+
+</section>
 
 <?php get_footer(); ?>

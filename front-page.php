@@ -240,6 +240,27 @@ $works = new WP_Query(array(
                             <?php echo get_field('work_subtitle'); ?>
                         </p>
 
+                        <?php
+                            // Collect up to 10 images (image1..image10) and their descriptions (image_1_description..image_10_description)
+                            $gallery_images = array();
+                            for ($i = 1; $i <= 10; $i++) {
+                                $img_field = get_field("image{$i}");
+                                $desc_field = get_field("image_{$i}_description");
+
+                                if ($img_field && is_array($img_field) && ! empty($img_field['url'])) {
+                                    $gallery_images[] = array(
+                                        'url' => $img_field['url'],
+                                        'alt' => ! empty($img_field['alt']) ? $img_field['alt'] : get_the_title(),
+                                        'desc' => $desc_field ?: ''
+                                    );
+                                }
+                            }
+                        ?>
+
+                        <?php if (! empty($gallery_images)) : ?>
+                            <div class="project-images-data" style="display:none" data-images="<?php echo esc_attr( wp_json_encode($gallery_images) ); ?>"></div>
+                        <?php endif; ?>
+
                     </div>
 
                 </div>
@@ -252,6 +273,19 @@ $works = new WP_Query(array(
 
             <?php endif; ?>
 
+        </div>
+
+        <!-- Work lightbox (inside works section, mirrors certificate behavior) -->
+        <div class="work-lightbox" aria-hidden="true">
+            <button type="button" class="work-lightbox__close" aria-label="Close work preview">&times;</button>
+            <div class="work-lightbox__media">
+                <div class="work-lightbox__image-wrap">
+                    <img class="work-lightbox__image" src="" alt="">
+                </div>
+                <button type="button" class="work-lightbox__prev" aria-label="Previous">‹</button>
+                <button type="button" class="work-lightbox__next" aria-label="Next">›</button>
+            </div>
+            <div class="work-lightbox__caption" aria-live="polite"></div>
         </div>
 
     </main>
@@ -802,6 +836,78 @@ $certs = new WP_Query( array(
 </section>
 
 <?php get_footer(); ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const worksSection = document.querySelector('.works-portfolio-wrapper');
+    const lightbox = worksSection ? worksSection.querySelector('.work-lightbox') : null;
+    if(!worksSection || !lightbox) return;
+
+    const imgEl = lightbox.querySelector('.work-lightbox__image');
+    const closeBtn = lightbox.querySelector('.work-lightbox__close');
+    const prevBtn = lightbox.querySelector('.work-lightbox__prev');
+    const nextBtn = lightbox.querySelector('.work-lightbox__next');
+    const captionEl = lightbox.querySelector('.work-lightbox__caption');
+
+    let currentImages = [];
+    let currentIndex = 0;
+
+    function openLightbox(images, startIndex, fallback){
+        currentImages = images || [];
+        currentIndex = startIndex || 0;
+        const data = currentImages[currentIndex] || fallback || {};
+        imgEl.src = data.url || (fallback && fallback.src) || '';
+        imgEl.alt = data.alt || (fallback && fallback.alt) || '';
+        captionEl.textContent = data.desc || '';
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden','false');
+        document.body.classList.add('work-lightbox-open');
+        closeBtn.focus();
+    }
+
+    function closeLightbox(){
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden','true');
+        imgEl.removeAttribute('src');
+        imgEl.setAttribute('alt', '');
+        currentImages = [];
+        document.body.classList.remove('work-lightbox-open');
+    }
+
+    function showNext(){ if(currentImages.length === 0) return; currentIndex = (currentIndex + 1) % currentImages.length; openLightbox(currentImages, currentIndex); }
+    function showPrev(){ if(currentImages.length === 0) return; currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length; openLightbox(currentImages, currentIndex); }
+
+    // attach click to project titles
+    const cards = worksSection.querySelectorAll('.projects-grid .project-card');
+    cards.forEach(function(card){
+        const titleEl = card.querySelector('.project-title');
+        if(!titleEl) return;
+        titleEl.style.cursor = 'pointer';
+        titleEl.addEventListener('click', function(e){
+            const dataEl = card.querySelector('.project-images-data');
+            if(!dataEl) return;
+            let images = [];
+            try{ images = JSON.parse(dataEl.getAttribute('data-images') || '[]'); }catch(err){ images = []; }
+            const fallback = { src: card.querySelector('img') ? card.querySelector('img').src : '', alt: card.querySelector('img') ? card.querySelector('img').alt : '' };
+            if(images.length === 0 && !fallback.src) return;
+            openLightbox(images, 0, fallback);
+        });
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function(e){ if(e.target === lightbox) closeLightbox(); });
+
+    prevBtn.addEventListener('click', function(e){ e.stopPropagation(); showPrev(); });
+    nextBtn.addEventListener('click', function(e){ e.stopPropagation(); showNext(); });
+
+    document.addEventListener('keydown', function(event){
+        if(!lightbox.classList.contains('is-open')) return;
+        if(event.key === 'Escape') closeLightbox();
+        if(event.key === 'ArrowRight') showNext();
+        if(event.key === 'ArrowLeft') showPrev();
+    });
+});
+</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){

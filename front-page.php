@@ -18,7 +18,30 @@ $tagline    = get_field( 'hero_tagline' );
 $desc       = get_field( 'hero_description' );
 $image      = get_field( 'hero_image' );
 $cta_text   = get_field( 'hero_cta_text' ) ?: 'View My Work';
-$cta_link   = get_field( 'hero_cta_link' ) ?: '#works';
+// prefer explicit ACF link, otherwise try to find the About page by template or slug, fallback to #works
+$cta_link = get_field( 'hero_cta_link' );
+if ( ! $cta_link ) {
+    // 1) try to find a page that uses the about page template
+    $about_pages = get_posts(array(
+        'post_type'  => 'page',
+        'meta_key'   => '_wp_page_template',
+        'meta_value' => 'templates/page-about.php',
+        'numberposts' => 1,
+    ));
+
+    if ( ! empty( $about_pages ) ) {
+        $cta_link = get_permalink( $about_pages[0]->ID );
+    } else {
+        // 2) fallback: try a page with slug 'about'
+        $about_page = get_page_by_path('about');
+        if ( $about_page ) {
+            $cta_link = get_permalink( $about_page->ID );
+        } else {
+            // final fallback: route to /about/ (root page-about.php will render hardcoded content)
+            $cta_link = home_url('/about/');
+        }
+    }
+}
 $github     = get_field( 'social_github' );
 $linkedin   = get_field( 'social_linkedin' );
 $email      = get_field( 'social_email' );

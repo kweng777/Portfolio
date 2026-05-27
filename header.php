@@ -16,12 +16,15 @@
 
 <header class="navbar">
 
-    <!-- LOGO -->
+    <!-- LOGO (hidden on About page per user request) -->
+    <?php if ( ! is_page('about') ) : ?>
     <div class="logo">
         <img src="<?php echo get_template_directory_uri(); ?>/images/white.png" alt="Logo">
     </div>
+    <?php endif; ?>
 
-    <!-- NAVIGATION -->
+    <!-- NAVIGATION (hidden on About page per user request) -->
+    <?php if ( ! is_page('about') ) : ?>
     <nav class="nav-links">
 
         <a href="#hero">
@@ -60,6 +63,7 @@
         </a>
 
     </nav>
+    <?php endif; ?>
 
 </header>
 <?php endif; ?>

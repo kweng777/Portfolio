@@ -1410,7 +1410,6 @@ body.work-lightbox-open {
 }
 
 
-
 .contact-row {
     display: flex;
     gap: 20px;
@@ -1426,5 +1425,48 @@ body.work-lightbox-open {
     .contact-row {
         flex-direction: column;
         gap: 0;
+    }
+}
+
+.about-content-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.about-two-columns {
+    display: flex;
+    gap: 30px;
+}
+
+.about-col {
+    flex: 1;
+    position: relative;
+}
+.resume-btn-edge {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.about-intro {
+    font-size: 1.3rem; /* slightly bigger than normal but still clean */
+    color: #333;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+    line-height: 1.7;
+}
+
+.about-text {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 18px;
+    letter-spacing: 1px;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+@media (max-width: 900px) {
+    .about-two-columns {
+        flex-direction: column;
     }
 }

@@ -51,7 +51,7 @@ get_header();
 
                 <style>
                 /* Scoped about page styles */
-                .about-banner{ background:#000; color:#fff; padding:22px 24px; border-radius:12px 12px 0 0; }
+                
                 .about-banner h2{ margin:0; font-size:2.6rem; }
                 .about-banner h3{ margin:6px 0 0 0; font-size:1.1rem; font-weight:600; }
 
@@ -68,44 +68,69 @@ get_header();
                 @media (max-width:900px){ .about-inner{ flex-direction:column; } .about-right-tech{ flex: none; width:100%; } .tech-grid{ grid-template-columns:repeat(5,1fr); justify-items:center; } }
                 </style>
 
-                <!-- Banner with H2 + H3 on black background -->
-                <div class="about-banner">
-                    <h2>Who I Am</h2>
-                </div>
+             
 
                 <div class="about-inner">
                     <div class="about-left">
-                        <p style="font-size:1.1rem; color:#333; margin-bottom:18px; letter-spacing: 1px;">I am Quennie Rose B. Barbarona, an aspiring Software and Web Developer from Davao City, Philippines. I am passionate about learning new technologies and improving my skills through hands-on experience and real-world projects.</p>
 
-                        <h3 style="font-size:1.6rem; margin-bottom:10px;">Development Works</h3>
-                        <ul style="margin-left:18px; margin-bottom:20px; color:#333; font-size:1rem; letter-spacing: 0.5px;">
-                            <li>Web development</li>
-                            <li>Backend development</li>
-                            <li>WordPress development</li>
-                            <li>Database management</li>
-                        </ul>
+                        <!-- FULL WIDTH INTRO -->
+                        <p class="about-intro">
+                            <?php the_field('introduction'); ?>
+                        </p>
 
-                        <a href="#" class="btn-more" style="display:inline-block;">Resume</a>
+                        <!-- TWO COLUMN WRAPPER -->
+                        <div class="about-two-columns">
+
+                            <!-- LEFT SIDE -->
+                            <div class="about-col">
+
+                                <h3 style="font-size:1.6rem; margin-bottom:10px; letter-spacing: 1px;">My Journey</h3>
+                                <p class="about-text">
+                                    <?php the_field('my_journey'); ?>
+                                </p>
+
+                                <h3 style="font-size:1.6rem; margin-bottom:10px; letter-spacing: 1px;">Learning Experience</h3>
+                                <p class="about-text">
+                                    <?php the_field('learning_experience'); ?>
+                                </p>
+
+                            </div>
+
+                            <!-- RIGHT SIDE -->
+                            <div class="about-col">
+
+                                <h3 style="font-size:1.6rem; margin-bottom:10px; letter-spacing: 1px;">Mindset</h3>
+                                <p class="about-text">
+                                    <?php the_field('mindset'); ?>
+                                </p>
+
+                                <h3 style="font-size:1.6rem; margin-bottom:10px; letter-spacing: 1px;">Goals</h3>
+                                <p class="about-text">
+                                    <?php the_field('goals'); ?>
+                                </p>
+
+                                 <!-- RESUME BUTTON MOVED HERE -->
+                                <?php 
+                                $resume = get_field('about_resume_file');
+
+                                if( $resume ) : 
+                                ?>
+                                    <a href="<?php echo esc_url($resume['url']); ?>" 
+                                    class="btn-more resume-btn-edge"
+                                    target="_blank">
+
+                                        Resume
+
+                                    </a>
+                                <?php endif; ?>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
-                    <aside class="about-right-tech">
-                        <div class="tech-panel">
-                            <h4>Technology I used</h4>
-                            <div class="tech-grid">
-                                <div class="tech-item" title="HTML5"><i class="fa-brands fa-html5 tech-icon" aria-hidden="true"></i></div>
-                                <div class="tech-item" title="Tailwind CSS"><span style="font-weight:700;">TW</span></div>
-                                <div class="tech-item" title="Blade"><span style="font-weight:700;">Blade</span></div>
-                                <div class="tech-item" title="React (Vite)"><i class="fa-brands fa-react tech-icon" aria-hidden="true"></i></div>
-                                <div class="tech-item" title="JavaScript"><i class="fa-brands fa-js tech-icon" aria-hidden="true"></i></div>
-
-                                <div class="tech-item" title="Bootstrap"><i class="fa-brands fa-bootstrap tech-icon" aria-hidden="true"></i></div>
-                                <div class="tech-item" title="Node.js"><i class="fa-brands fa-node-js tech-icon" aria-hidden="true"></i></div>
-                                <div class="tech-item" title="ASP.NET (C#)"><span style="font-weight:700;">ASP.NET</span></div>
-                                <div class="tech-item" title="MySQL"><i class="fa-solid fa-database tech-icon" aria-hidden="true"></i></div>
-                                <div class="tech-item" title="Vite"><span style="font-weight:700;">Vite</span></div>
-                            </div>
-                        </div>
-                    </aside>
+                    
                 </div>
 
             </div>

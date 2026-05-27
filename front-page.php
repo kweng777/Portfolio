@@ -24,7 +24,7 @@ $linkedin   = get_field( 'social_linkedin' );
 $email      = get_field( 'social_email' );
 ?>
 
-<section class="hero-replicate">
+<section id="about" class="hero-replicate">
     <div class="hero-container">
         
         <div class="hero-left">
@@ -103,7 +103,7 @@ $works = new WP_Query(array(
 ));
 ?>
 
-<section class="works-portfolio-wrapper">
+<section id="works" class="works-portfolio-wrapper">
 
     <aside class="portfolio-sidebar">
         
@@ -179,6 +179,10 @@ $works = new WP_Query(array(
                         $work_backend = get_field('work_backend');
                         $work_database = get_field('work_database');
                         $work_role_description = get_field('work_role_description');
+                        // increase logo size for specific works
+                        $large_logos = array('Loan Management System', 'HR Information System');
+                        $logo_class = in_array($title, $large_logos, true) ? 'work-logo--large' : '';
+                        $logo_wrapper_class = in_array($title, $large_logos, true) ? 'work-logo-wrapper--large' : '';
                     ?>
 
                     <div class="project-card" data-category="<?php echo esc_attr($category); ?>">
@@ -224,10 +228,10 @@ $works = new WP_Query(array(
                     </div>
 
                     <!-- RIGHT SIDE -->
-                    <div class="project-card-right">
+                    <div class="project-card-right <?php echo esc_attr($logo_wrapper_class); ?>">
 
                         <?php if ($logo): ?>
-                            <img src="<?php echo esc_url($logo['url']); ?>" alt="<?php echo esc_attr(get_the_title()); ?> logo">
+                            <img src="<?php echo esc_url($logo['url']); ?>" class="<?php echo esc_attr($logo_class); ?>" alt="<?php echo esc_attr(get_the_title()); ?> logo">
                         <?php endif; ?>
 
                         <h3 class="project-title"><?php the_title(); ?></h3>
@@ -307,8 +311,22 @@ $works = new WP_Query(array(
             });
         });
 
-        // preserve original default behavior
-        filterCards("capstone");
+        // determine initial filter: prefer any pre-highlighted tab, otherwise default to capstone
+        let initialFilter = 'capstone';
+        const preHighlighted = document.querySelector('.filter-tabs .tab.highlight');
+        if (preHighlighted) {
+            initialFilter = preHighlighted.getAttribute('data-filter') || initialFilter;
+        } else if (tabs.length > 0) {
+            // if no pre-highlight exists, mark the first tab as highlighted
+            tabs[0].classList.add('highlight');
+            initialFilter = tabs[0].getAttribute('data-filter') || initialFilter;
+        }
+
+        // ensure the visual highlight matches the initial filter
+        tabs.forEach(t => t.classList.toggle('highlight', t.getAttribute('data-filter') === initialFilter));
+
+        // apply filter based on the resolved initial filter
+        filterCards(initialFilter);
     }
 
     if (document.readyState === 'loading') {
@@ -317,6 +335,33 @@ $works = new WP_Query(array(
         init();
     }
 })();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    function smoothNavigateLinks(selector){
+        document.querySelectorAll(selector).forEach(function(a){
+            a.addEventListener('click', function(e){
+                var href = a.getAttribute('href');
+                if(!href || href.charAt(0) !== '#') return;
+                var target = document.querySelector(href);
+                if(target){
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    try{ target.setAttribute('tabindex','-1'); target.focus(); }catch(err){}
+                    if(window.history && history.pushState){
+                        history.pushState(null, '', href);
+                    } else {
+                        location.hash = href;
+                    }
+                }
+            });
+        });
+    }
+
+    smoothNavigateLinks('.sidebar-nav-menu a');
+    smoothNavigateLinks('.nav-icons a');
+    smoothNavigateLinks('.work-nav-icons a');
+});
 </script>
 
 <?php
@@ -387,7 +432,7 @@ $categories = [
 ];
 ?>
 
-<section class="works-portfolio-wrapper">
+<section id="skills" class="works-portfolio-wrapper">
 
     <aside class="portfolio-sidebar">
         
@@ -498,7 +543,7 @@ $certs = new WP_Query( array(
 
 <?php if ( $certs->have_posts() ) : ?>
 <?php $certificate_lightbox_images = array(); ?>
-<section class="works-portfolio-wrapper">
+<section id="certificates" class="works-portfolio-wrapper">
 
     <aside class="portfolio-sidebar">
         
@@ -699,36 +744,43 @@ $certs = new WP_Query( array(
         <div class="contact-card-container">
             
             <div class="contact-info-panel">
+                <div class="form-header-text">
+                    <h3>GET IN TOUCH</h3>
+                </div>
                 
                 <div class="info-item">
                     <span class="info-icon"><i class="fa-solid fa-location-dot"></i></span>
-                    <p class="info-text">Krajowa 789,<br>80-800 Gdańsk<br>Poland</p>
+                    <p class="info-text">Maa,<br>Davao City, <br>Philippines</p>
                 </div>
                 
                 <div class="info-item">
                     <span class="info-icon"><i class="fa-solid fa-phone"></i></span>
-                    <p class="info-text">+48 987 654 321</p>
+                    <p class="info-text">+639-297-198-867</p>
                 </div>
                 
                 <div class="info-item">
                     <span class="info-icon"><i class="fa-solid fa-envelope"></i></span>
-                    <p class="info-text">ipsum@example.pl</p>
+                    <p class="info-text">quenniebarbarona777 <br> @gmail.com</p>
                 </div>
                 
                 <div class="social-section">
                     <p class="social-title">You can find us here too!</p>
                     <div class="social-icons">
-                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/quennie.barbarona" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@username" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://instagram.com/quennie_barbarona" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <div class="contact-form-wrapper">
-                <div class="form-header-text">
-                    <h3>Have Questions? Let's Get in Touch</h3>
-                </div>
+                
 
                 <?php echo do_shortcode('[contact-form-7 id="57da92d" title="Contact form 1"]'); ?>
             </div>
@@ -750,3 +802,31 @@ $certs = new WP_Query( array(
 </section>
 
 <?php get_footer(); ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    // make entire right icon list item clickable and scroll smoothly to section
+    document.querySelectorAll('.work-nav-icons li').forEach(function(li){
+        li.style.cursor = 'pointer';
+        li.addEventListener('click', function(e){
+            var a = li.querySelector('a');
+            if(!a) return;
+            var href = a.getAttribute('href');
+            if(!href) return;
+            if(href.charAt(0) === '#'){
+                var target = document.querySelector(href);
+                if(target){
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // update focus for accessibility
+                    try{ target.setAttribute('tabindex','-1'); target.focus(); }catch(e){}
+                } else {
+                    // fallback to default navigation
+                    window.location.href = href;
+                }
+            } else {
+                window.location.href = href;
+            }
+        });
+    });
+});
+</script>

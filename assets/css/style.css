@@ -635,7 +635,7 @@
     flex-direction: column;
     justify-content: center; /* IMPORTANT: center content vertically */
     align-items: center;
-    gap: 12px;
+    gap: 5px;
     text-align: center;
 }
 
@@ -661,16 +661,39 @@
 /* TITLE */
 .project-card-right h3 {
     margin: 0;
-    font-size: 1.4rem;
-    line-height: 1.2;
+    font-size: 1.7rem;
+    line-height: 1;
 }
 
 /* SUBTITLE */
 .project-subtitle {
     margin: 0;
     color: #666;
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 1.5rem;
+    line-height: 1;
+ 
+}
+
+/* SEE MORE BUTTON */
+.project-see-more {
+    margin-bottom: 5px;
+    background: #000;
+    color: #fff;
+    padding: 8px 24px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.project-see-more:hover {
+    background: #FC7E00;
+    color: #000;
 }
 
 /* --- Right Icon Bar Layout --- */
@@ -1468,5 +1491,178 @@ body.work-lightbox-open {
 @media (max-width: 900px) {
     .about-two-columns {
         flex-direction: column;
+    }
+}
+
+/* Footer Styles */
+.site-footer {
+    background-color: #000;
+    color: #fff;
+    padding: 40px 0 20px;
+}
+
+.footer-columns {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-column {
+    flex: 1;
+}
+
+.footer-column-1 {
+    flex: 1.2;
+    align-items: flex-start;
+}
+
+.footer-column-2 {
+    flex: 1;
+}
+
+.footer-column-3 {
+    flex: 1;
+}
+
+.footer-logo {
+    max-width: 170px;
+    height: auto;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    display: block;
+    margin-left: 43px;
+}
+
+.footer-column h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1.3px;
+    margin-top: -40px;
+    margin-left: 50px;
+}
+
+.footer-column h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    margin: 0 0 15px 0;
+    letter-spacing: 1px;
+    color: #FC7E00;
+}
+
+.footer-column p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    color: #ccc;
+}
+
+.footer-column-1 p {
+    font-size: 1.5rem;
+    margin-left: 20px;
+}
+
+.footer-column-2 ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column-2 ul li {
+    margin-bottom: 8px;
+}
+
+.footer-column-2 ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.3rem;
+    transition: color 0.3s ease;
+    margin-left: 15px;
+    line-height: 1.7;
+}
+
+.footer-column-2 ul li a:hover {
+    color: #FC7E00;
+}
+
+.footer-column p.footer-email {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    line-height: 1.2;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #FC7E00;
+}
+
+.footer-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+    gap: 20px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.site-footer .footer-copy {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #888;
+    text-align: center !important;
+    width: 100%;
+    display: block;
+}
+
+.back-to-top {
+    background-color: #FC7E00;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-to-top:hover {
+    background-color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+    .footer-columns {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .footer-column {
+        flex: none;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .back-to-top {
+        margin: 0 auto;
     }
 }

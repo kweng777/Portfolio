@@ -24,13 +24,54 @@ $footer_works = new WP_Query( array(
 
 <footer class="site-footer">
     <div class="container">
+        <div class="footer-columns">
+            <div class="footer-column footer-column-1">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/orange.PNG" alt="Logo" class="footer-logo">
+                <h3>Quennie Rose Barbarona</h3>
+                <p>"Build, Learn, Grow"</p>
+            </div>
+            <div class="footer-column footer-column-2">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#works">Works</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#certificates">Certificates</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column footer-column-3">
+                <h4>Contact Me</h4>
+                <p class="footer-email">Email: quenniebarbarona777@gmail.com</p>
+                <p class="footer-email">+63 929 719 8867</p>
+                <p class="footer-email">Davao City, Philippines</p>
+                <div class="footer-social">
+                    <?php if ( $footer_github ) : ?>
+                        <a href="<?php echo esc_url( $footer_github ); ?>" target="_blank">GitHub</a>
+                    <?php endif; ?>
+                    <?php if ( $footer_linkedin ) : ?>
+                        <a href="<?php echo esc_url( $footer_linkedin ); ?>" target="_blank">LinkedIn</a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
         <div class="footer-bottom">
+            <button class="back-to-top" onclick="scrollToAbout()">Back to Top</button>
             <p class="footer-copy">
-                &copy; <?php echo date( 'Y' ); ?> <?php bloginfo( 'name' ); ?>. All rights reserved.
+                &copy; 2026 Quennie Rose Barbarona. All rights reserved.
             </p>
         </div>
     </div>
 </footer>
+
+<script>
+function scrollToAbout() {
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+        aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+</script>
 
 <?php wp_footer(); ?>
 </body>

@@ -28,10 +28,10 @@ $footer_works = new WP_Query( array(
             <div class="footer-column footer-column-1">
                 <img src="<?php echo get_template_directory_uri(); ?>/images/orange.PNG" alt="Logo" class="footer-logo">
                 <h3>Quennie Rose Barbarona</h3>
-                <p>"Build, Learn, Grow"</p>
+                <p>Build, Learn, Grow</p>
             </div>
             <div class="footer-column footer-column-2">
-                <h4>Quick Links</h4>
+                <h4>Navigations</h4>
                 <ul>
                     <li><a href="#about">About</a></li>
                     <li><a href="#works">Works</a></li>
@@ -58,7 +58,7 @@ $footer_works = new WP_Query( array(
         <div class="footer-bottom">
             <button class="back-to-top" onclick="scrollToAbout()">Back to Top</button>
             <p class="footer-copy">
-                &copy; 2026 Quennie Rose Barbarona. All rights reserved.
+                &copy; 2026 Porfolio. All rights reserved.
             </p>
         </div>
     </div>

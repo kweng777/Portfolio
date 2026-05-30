@@ -818,7 +818,7 @@ $certs = new WP_Query( array(
                 
                 <div class="info-item">
                     <span class="info-icon"><i class="fa-solid fa-phone"></i></span>
-                    <p class="info-text">+639-297-198-867</p>
+                    <p class="info-text">+63 929 719 8867</p>
                 </div>
                 
                 <div class="info-item">

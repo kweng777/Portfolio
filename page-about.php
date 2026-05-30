@@ -27,10 +27,10 @@ get_header();
         <nav class="sidebar-nav-menu">
             <ul>
                 <li><a href="<?php echo esc_url( home_url('/about/') ); ?>" class="active">ABOUT</a></li>
-                <li><a href="<?php echo esc_url( home_url('/works/') ); ?>">WORKS</a></li>
-                <li><a href="<?php echo esc_url( home_url('/skills/') ); ?>">SKILLS</a></li>
-                <li><a href="<?php echo esc_url( home_url('/certificates/') ); ?>">CERTIFICATES</a></li>
-                <li><a href="<?php echo esc_url( home_url('/contact/') ); ?>">CONTACT</a></li>
+                <li><a href="<?php echo esc_url( home_url('/#works') ); ?>">WORKS</a></li>
+                <li><a href="<?php echo esc_url( home_url('/#skills') ); ?>">SKILLS</a></li>
+                <li><a href="<?php echo esc_url( home_url('/#certificates') ); ?>">CERTIFICATES</a></li>
+                <li><a href="<?php echo esc_url( home_url('/#contact') ); ?>">CONTACT</a></li>
             </ul>
         </nav>
 
@@ -84,12 +84,12 @@ get_header();
                             <!-- LEFT SIDE -->
                             <div class="about-col">
 
-                                <h3 style="font-size:1.6rem; margin-bottom:10px; letter-spacing: 1px;">My Journey</h3>
+                                <h3 style="margin-bottom:10px; letter-spacing: 2px;"><span class="project-label">My Journey</span></h3>
                                 <p class="about-text">
                                     <?php the_field('my_journey'); ?>
                                 </p>
 
-                                <h3 style="font-size:1.6rem; margin-bottom:10px; letter-spacing: 1px;">Learning Experience</h3>
+                                <h3 style="margin-bottom:10px; letter-spacing: 2px;"><span class="project-label">Learning Experience</span></h3>
                                 <p class="about-text">
                                     <?php the_field('learning_experience'); ?>
                                 </p>
@@ -99,12 +99,12 @@ get_header();
                             <!-- RIGHT SIDE -->
                             <div class="about-col">
 
-                                <h3 style="font-size:1.6rem; margin-bottom:10px; letter-spacing: 1px;">Mindset</h3>
+                                <h3 style="margin-bottom:10px; letter-spacing: 2px;"><span class="project-label">Mindset</span></h3>
                                 <p class="about-text">
                                     <?php the_field('mindset'); ?>
                                 </p>
 
-                                <h3 style="font-size:1.6rem; margin-bottom:10px; letter-spacing: 1px;">Goals</h3>
+                                <h3 style="margin-bottom:10px; letter-spacing: 2px;"><span class="project-label">Goals</span></h3>
                                 <p class="about-text">
                                     <?php the_field('goals'); ?>
                                 </p>
@@ -141,11 +141,11 @@ get_header();
     <aside class="right-icon-bar">
 
         <ul class="work-nav-icons">
-            <li><a href="/about"><i class="fa-solid fa-user-tie"></i></a></li>
-            <li><a href="/works"><i class="fa-solid fa-code"></i></a></li>
-            <li><a href="/skills"><i class="fa-solid fa-gears"></i></a></li>
-            <li><a href="/certificates"><i class="fa-solid fa-award"></i></a></li>
-            <li><a href="/contact"><i class="fa-solid fa-envelope-open-text"></i></a></li>
+            <li><a href="<?php echo esc_url( home_url('/about/') ); ?>" class="active"><i class="fa-solid fa-user-tie"></i></a></li>
+            <li><a href="<?php echo esc_url( home_url('/#works') ); ?>"><i class="fa-solid fa-code"></i></a></li>
+            <li><a href="<?php echo esc_url( home_url('/#skills') ); ?>"><i class="fa-solid fa-gears"></i></a></li>
+            <li><a href="<?php echo esc_url( home_url('/#certificates') ); ?>"><i class="fa-solid fa-award"></i></a></li>
+            <li><a href="<?php echo esc_url( home_url('/#contact') ); ?>"><i class="fa-solid fa-envelope-open-text"></i></a></li>
         </ul>
 
     </aside>

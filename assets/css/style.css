@@ -281,6 +281,11 @@
     color: #000;
 }
 
+.nav-icons a.active {
+    background: #FC7E00;
+    color: #000;
+}
+
 
 .works-portfolio-wrapper {
     display: flex;
@@ -398,6 +403,8 @@
 
 .sidebar-nav-menu li a.active {
     color: #fff;
+    background-color: #FC7E00;
+    border-radius: 8px;
 }
 
 /* Increase vertical gap between sidebar nav items without changing layout */
@@ -677,7 +684,7 @@
 /* SEE MORE BUTTON */
 .project-see-more {
     margin-bottom: 5px;
-    background: #000;
+    background: #FC7E00;
     color: #fff;
     padding: 8px 24px;
     border-radius: 20px;
@@ -692,8 +699,8 @@
 }
 
 .project-see-more:hover {
-    background: #FC7E00;
-    color: #000;
+    background: #000;
+    color: #FC7E00;
 }
 
 /* --- Right Icon Bar Layout --- */
@@ -789,6 +796,12 @@
     background: #FC7E00;
     color: #fff;
     transform: scale(1.1);
+}
+
+/* --- Active State --- */
+.work-nav-icons a.active {
+    background: #FC7E00;
+    color: #fff;
 }
 
 
@@ -1553,7 +1566,7 @@ body.work-lightbox-open {
     font-size: 1rem;
     line-height: 1.5;
     margin: 0;
-    color: #ccc;
+    color: #fff;
 }
 
 .footer-column-1 p {

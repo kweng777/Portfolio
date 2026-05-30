@@ -98,6 +98,154 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ─── Sync sidebar nav menu and right icon bar active states ─────
+    function syncActiveStates(href, source) {
+        // Remove active class from ALL sidebar nav menu items across all sections
+        document.querySelectorAll('.sidebar-nav-menu a').forEach(link => {
+            link.classList.remove('active');
+        });
+
+        // Remove active class from ALL right icon bar items across all sections
+        document.querySelectorAll('.work-nav-icons a').forEach(icon => {
+            icon.classList.remove('active');
+        });
+
+        // Remove active class from ALL circular nav icons
+        document.querySelectorAll('.nav-icons a').forEach(icon => {
+            icon.classList.remove('active');
+        });
+
+        // Special handling for #about based on source
+        if (href === '#about') {
+            if (source === 'circular-nav') {
+                // Only highlight circular nav icon
+                document.querySelectorAll(`.nav-icons a[href="${href}"]`).forEach(icon => {
+                    icon.classList.add('active');
+                });
+            } else if (source === 'sidebar-nav') {
+                // Only highlight circular nav icon
+                document.querySelectorAll(`.nav-icons a[href="${href}"]`).forEach(icon => {
+                    icon.classList.add('active');
+                });
+            }
+            // If source is 'right-icon-bar' or 'work-section', don't highlight anything
+        } else {
+            // For all other sections, highlight all matching elements
+            document.querySelectorAll(`.sidebar-nav-menu a[href="${href}"]`).forEach(link => {
+                link.classList.add('active');
+            });
+
+            document.querySelectorAll(`.work-nav-icons a[href="${href}"]`).forEach(icon => {
+                icon.classList.add('active');
+            });
+
+            document.querySelectorAll(`.nav-icons a[href="${href}"]`).forEach(icon => {
+                icon.classList.add('active');
+            });
+        }
+    }
+
+    // Handle circular nav clicks
+    document.querySelectorAll('.nav-icons a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            syncActiveStates(href, 'circular-nav');
+        });
+    });
+
+    // Handle sidebar nav menu clicks
+    document.querySelectorAll('.sidebar-nav-menu a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            syncActiveStates(href, 'sidebar-nav');
+        });
+    });
+
+    // Handle right icon bar clicks
+    document.querySelectorAll('.work-nav-icons a').forEach(icon => {
+        icon.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            syncActiveStates(href, 'right-icon-bar');
+        });
+    });
+
+    // Set initial active state based on current URL hash or default to first item
+    function setInitialActiveState() {
+        // Check if we're on the about page
+        const isAboutPage = window.location.pathname.includes('/about');
+
+        if (isAboutPage && !window.location.hash) {
+            // On about page without hash, preserve the hardcoded active classes
+            // Don't run syncActiveStates to avoid removing the active classes
+            return;
+        }
+
+        const currentHash = window.location.hash || '#about';
+        syncActiveStates(currentHash, 'sidebar-nav');
+    }
+
+    setInitialActiveState();
+
+    // Update active state on hash change
+    window.addEventListener('hashchange', () => {
+        setInitialActiveState();
+    });
+
+    // ─── Scroll Spy - Auto-highlight nav based on scroll position ─────
+    function initScrollSpy() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.sidebar-nav-menu a, .work-nav-icons a, .nav-icons a');
+
+        if (sections.length === 0 || navLinks.length === 0) return;
+
+        function updateActiveNav() {
+            let currentSection = '';
+            const scrollPosition = window.scrollY + 100; // Offset for better detection
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = '#' + sectionId;
+                }
+            });
+
+            // If no section is in view (e.g., at very top), default to #about
+            if (!currentSection && window.scrollY < 100) {
+                currentSection = '#about';
+            }
+
+            // Update active states for all nav elements
+            if (currentSection) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // Use scroll event with throttle for performance
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateActiveNav();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Initial check
+        updateActiveNav();
+    }
+
+    initScrollSpy();
+
     // ─── Projects Carousel (Front Page) ─────────────────────────────
     const carousel = document.querySelector('.projects-carousel');
     if (carousel) {

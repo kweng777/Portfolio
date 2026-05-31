@@ -41,7 +41,7 @@ get_header();
         <div class="header-area">
             <div class="title-with-arrow">
                 <div class="line-arrow"></div>
-                <h1 class="main-title">ABOUT</h1>
+                <h1 class="main-title">ABOUT ME</h1>
             </div>
         </div>
 

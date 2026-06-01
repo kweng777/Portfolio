@@ -26,6 +26,7 @@ get_header();
 
         <nav class="sidebar-nav-menu">
             <ul>
+                <li><a href="<?php echo esc_url( home_url('/#home') ); ?>">HOME</a></li>
                 <li><a href="<?php echo esc_url( home_url('/about/') ); ?>" class="active">ABOUT</a></li>
                 <li><a href="<?php echo esc_url( home_url('/#works') ); ?>">WORKS</a></li>
                 <li><a href="<?php echo esc_url( home_url('/#skills') ); ?>">SKILLS</a></li>
@@ -119,7 +120,7 @@ get_header();
                                     class="btn-more resume-btn-edge"
                                     target="_blank">
 
-                                        Resume
+                                        View Resume
 
                                     </a>
                                 <?php endif; ?>
@@ -141,6 +142,7 @@ get_header();
     <aside class="right-icon-bar">
 
         <ul class="work-nav-icons">
+            <li><a href="<?php echo esc_url( home_url('/#home') ); ?>"><i class="fa-solid fa-house"></i></a></li>
             <li><a href="<?php echo esc_url( home_url('/about/') ); ?>" class="active"><i class="fa-solid fa-user-tie"></i></a></li>
             <li><a href="<?php echo esc_url( home_url('/#works') ); ?>"><i class="fa-solid fa-code"></i></a></li>
             <li><a href="<?php echo esc_url( home_url('/#skills') ); ?>"><i class="fa-solid fa-gears"></i></a></li>

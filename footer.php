@@ -13,6 +13,11 @@ $contact_pages = get_pages( array( 'meta_key' => '_wp_page_template', 'meta_valu
 $contact_page_id = ! empty( $contact_pages ) ? $contact_pages[0]->ID : 0;
 $footer_phone    = $contact_page_id ? get_field( 'contact_phone', $contact_page_id ) : '';
 
+// Pull about page data for resume
+$about_page = get_page_by_path( 'about' );
+$about_page_id = $about_page ? $about_page->ID : 0;
+$footer_resume  = $about_page_id ? get_field( 'about_resume_file', $about_page_id ) : '';
+
 // Get recent works
 $footer_works = new WP_Query( array(
     'post_type'      => 'work',
@@ -45,6 +50,9 @@ $footer_works = new WP_Query( array(
                 <p class="footer-email">Email: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=quenniebarbarona777@gmail.com" target="_blank" class="footer-link">quenniebarbarona777@gmail.com</a></p>
                 <p class="footer-email">Mobile: <a href="tel:+639297198867" class="footer-link">+63 929 719 8867</a></p>
                 <p class="footer-email">Davao City, Philippines</p>
+                <?php if ( $footer_resume ) : ?>
+                    <a href="<?php echo esc_url( $footer_resume['url'] ); ?>" target="_blank" class="footer-resume-btn">View Resume</a>
+                <?php endif; ?>
                 <div class="footer-social">
                     <?php if ( $footer_github ) : ?>
                         <a href="<?php echo esc_url( $footer_github ); ?>" target="_blank">GitHub</a>

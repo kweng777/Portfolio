@@ -47,7 +47,7 @@ $linkedin   = get_field( 'social_linkedin' );
 $email      = get_field( 'social_email' );
 ?>
 
-<section id="about" class="hero-replicate">
+<section id="home" class="hero-replicate">
     <div class="hero-container">
         
         <div class="hero-left">
@@ -103,7 +103,8 @@ $email      = get_field( 'social_email' );
                     
                     <ul class="nav-icons">
                         
-                        <li style="--icon-index:1;"><a href="#about"><i class="fa-solid fa-user-tie"></i></a></li>
+                        <li style="--icon-index:0;"><a href="#home"><i class="fa-solid fa-house"></i></a></li>
+                        <li style="--icon-index:1;"><a href="<?php echo home_url('/about/'); ?>"><i class="fa-solid fa-user-tie"></i></a></li>
                         
                         <li style="--icon-index:2;"><a href="#works"><i class="fa-solid fa-code"></i></a></li>
                         
@@ -144,7 +145,8 @@ $works = new WP_Query(array(
 
         <nav class="sidebar-nav-menu">
             <ul>
-                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#home">HOME</a></li>
+                <li><a href="<?php echo home_url('/about/'); ?>">ABOUT</a></li>
                 <li><a href="#works" class="active">WORKS</a></li>
                 <li><a href="#skills">SKILLS</a></li>
                 <li><a href="#certificates">CERTIFICATES</a></li>
@@ -323,7 +325,8 @@ $works = new WP_Query(array(
     <aside class="right-icon-bar">
 
         <ul class="work-nav-icons">
-            <li><a href="#about"><i class="fa-solid fa-user-tie"></i></a></li>
+            <li><a href="#home"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="<?php echo home_url('/about/'); ?>"><i class="fa-solid fa-user-tie"></i></a></li>
             <li><a href="#works"><i class="fa-solid fa-code"></i></a></li>
             <li><a href="#skills"><i class="fa-solid fa-gears"></i></a></li>
             <li><a href="#certificates"><i class="fa-solid fa-award"></i></a></li>
@@ -513,7 +516,8 @@ $categories = [
 
         <nav class="sidebar-nav-menu">
             <ul>
-                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#home">HOME</a></li>
+                <li><a href="<?php echo home_url('/about/'); ?>">ABOUT</a></li>
                 <li><a href="#works">WORKS</a></li>
                 <li><a href="#skills" class="active">SKILLS</a></li>
                 <li><a href="#certificates">CERTIFICATES</a></li>
@@ -583,7 +587,8 @@ $categories = [
     <aside class="right-icon-bar">
 
         <ul class="work-nav-icons">
-            <li><a href="#about"><i class="fa-solid fa-user-tie"></i></a></li>
+            <li><a href="#home"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="<?php echo home_url('/about/'); ?>"><i class="fa-solid fa-user-tie"></i></a></li>
             <li><a href="#works"><i class="fa-solid fa-code"></i></a></li>
             <li><a href="#skills"><i class="fa-solid fa-gears"></i></a></li>
             <li><a href="#certificates"><i class="fa-solid fa-award"></i></a></li>
@@ -624,7 +629,8 @@ $certs = new WP_Query( array(
 
         <nav class="sidebar-nav-menu">
             <ul>
-                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#home">HOME</a></li>
+                <li><a href="<?php echo home_url('/about/'); ?>">ABOUT</a></li>
                 <li><a href="#works">WORKS</a></li>
                 <li><a href="#skills">SKILLS</a></li>
                 <li><a href="#certificates" class="active">CERTIFICATES</a></li>
@@ -681,7 +687,8 @@ $certs = new WP_Query( array(
     <aside class="right-icon-bar">
 
         <ul class="work-nav-icons">
-            <li><a href="#about"><i class="fa-solid fa-user-tie"></i></a></li>
+            <li><a href="#home"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="<?php echo home_url('/about/'); ?>"><i class="fa-solid fa-user-tie"></i></a></li>
             <li><a href="#works"><i class="fa-solid fa-code"></i></a></li>
             <li><a href="#skills"><i class="fa-solid fa-gears"></i></a></li>
             <li><a href="#certificates"><i class="fa-solid fa-award"></i></a></li>
@@ -786,7 +793,8 @@ $certs = new WP_Query( array(
 
         <nav class="sidebar-nav-menu">
             <ul>
-                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#home">HOME</a></li>
+                <li><a href="<?php echo home_url('/about/'); ?>">ABOUT</a></li>
                 <li><a href="#works">WORKS</a></li>
                 <li><a href="#skills">SKILLS</a></li>
                 <li><a href="#certificates">CERTIFICATES</a></li>
@@ -854,7 +862,8 @@ $certs = new WP_Query( array(
 
     <aside class="right-icon-bar">
         <ul class="work-nav-icons">
-            <li><a href="#about"><i class="fa-solid fa-user-tie"></i></a></li>
+            <li><a href="#home"><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="<?php echo home_url('/about/'); ?>"><i class="fa-solid fa-user-tie"></i></a></li>
             <li><a href="#works"><i class="fa-solid fa-code"></i></a></li>
             <li><a href="#skills"><i class="fa-solid fa-gears"></i></a></li>
             <li><a href="#certificates"><i class="fa-solid fa-award"></i></a></li>

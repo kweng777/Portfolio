@@ -435,7 +435,25 @@
     background-color: #fff;
 }
 
+/* For skills section ensure the left sidebar stretches to match main content height */
+.works-portfolio-wrapper:has(.skills-section) {
+    align-items: stretch;
+}
 
+.works-portfolio-wrapper:has(.skills-section) .portfolio-sidebar {
+    height: auto;
+    min-height: 100vh;
+}
+
+/* For works section ensure the left sidebar stretches to match main content height */
+.works-portfolio-wrapper:has(.projects-grid) {
+    align-items: stretch;
+}
+
+.works-portfolio-wrapper:has(.projects-grid) .portfolio-sidebar {
+    height: auto;
+    min-height: 100vh;
+}
 
 /* For certificates page ensure the left sidebar stretches to match main content height */
 .works-portfolio-wrapper:has(.certificates-section) {
@@ -1574,10 +1592,12 @@ body.work-lightbox-open {
 
 .footer-column-2 {
     flex: 1;
+    font-family: Arial, sans-serif;
 }
 
 .footer-column-3 {
     flex: 1;
+    font-family: Arial, sans-serif;
 }
 
 .footer-logo {
@@ -1660,6 +1680,26 @@ body.work-lightbox-open {
 
 .footer-social a:hover {
     color: #FC7E00;
+}
+
+.footer-resume-btn {
+    display: inline-block;
+    background-color: #FC7E00;
+    color: #000;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 10px;
+}
+
+.footer-resume-btn:hover {
+    background-color: #fff;
+    color: #000;
+    transform: translateY(-2px);
 }
 
 .footer-bottom {

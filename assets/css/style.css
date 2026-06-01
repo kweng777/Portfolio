@@ -1723,6 +1723,18 @@ body.work-lightbox-open {
     }
 }
 
+/* Footer Link Styles - Remove blue color and underline */
+.footer-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #ff6b35;
+    text-decoration: none;
+}
+
 /* ============================================
    RESPONSIVE STYLES FOR FRONT-PAGE.PHP
    ============================================ */

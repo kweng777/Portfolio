@@ -267,7 +267,7 @@ $works = new WP_Query(array(
                         $work_url = get_field('work_url');
                         $is_loan_management = stripos($title, 'Loan Management System') !== false;
                         ?>
-                        <a href="<?php echo $is_loan_management && $work_url ? esc_url($work_url) : the_permalink(); ?>" class="project-see-more">See More</a>
+                        <a href="<?php echo $is_loan_management && $work_url ? esc_url($work_url) : the_permalink(); ?>" class="project-see-more" data-work-url="<?php echo esc_url($work_url); ?>" data-is-loan-management="<?php echo $is_loan_management ? 'true' : 'false'; ?>">See More</a>
 
                         <?php
                             // Collect up to 10 images (image1..image10) and their descriptions (image_1_description..image_10_description)
@@ -903,7 +903,18 @@ document.addEventListener('DOMContentLoaded', function(){
         document.body.classList.remove('work-lightbox-open');
     }
 
-    function showNext(){ if(currentImages.length === 0) return; currentIndex = (currentIndex + 1) % currentImages.length; openLightbox(currentImages, currentIndex); }
+    let currentWorkUrl = '';
+    let currentIsLoanManagement = false;
+
+    function showNext(){
+        if(currentIsLoanManagement && currentWorkUrl){
+            window.open(currentWorkUrl, '_blank');
+            return;
+        }
+        if(currentImages.length === 0) return;
+        currentIndex = (currentIndex + 1) % currentImages.length;
+        openLightbox(currentImages, currentIndex);
+    }
     function showPrev(){ if(currentImages.length === 0) return; currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length; openLightbox(currentImages, currentIndex); }
 
     // attach click to project titles and see more buttons
@@ -930,17 +941,32 @@ document.addEventListener('DOMContentLoaded', function(){
         if(seeMoreEl){
             seeMoreEl.style.cursor = 'pointer';
             seeMoreEl.addEventListener('click', function(e){
-                const titleEl = card.querySelector('.project-title');
-                const titleText = titleEl ? titleEl.textContent.toLowerCase() : '';
+                const isLoanManagement = seeMoreEl.getAttribute('data-is-loan-management') === 'true';
+                const workUrl = seeMoreEl.getAttribute('data-work-url') || '';
                 
-                // Check if this is Loan Management System
-                if(titleText.includes('loan management system')){
-                    // Let the default link behavior work (routes to work_url)
+                // For Loan Management System, open lightbox with image1 and image_1_description
+                if(isLoanManagement){
+                    e.preventDefault();
+                    currentWorkUrl = workUrl;
+                    currentIsLoanManagement = true;
+                    
+                    const dataEl = card.querySelector('.project-images-data');
+                    let images = [];
+                    if(dataEl){
+                        try{ images = JSON.parse(dataEl.getAttribute('data-images') || '[]'); }catch(err){ images = []; }
+                    }
+                    
+                    // Only show the first image (image1) for Loan Management System
+                    if(images.length > 0){
+                        openLightbox([images[0]], 0);
+                    }
                     return;
                 }
                 
-                // For other projects, open lightbox
+                // For other projects, open lightbox with all images
                 e.preventDefault();
+                currentWorkUrl = '';
+                currentIsLoanManagement = false;
                 openCardLightbox(e);
             });
         }

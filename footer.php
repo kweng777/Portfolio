@@ -43,7 +43,7 @@ $footer_works = new WP_Query( array(
             <div class="footer-column footer-column-3">
                 <h4>Contact Me</h4>
                 <p class="footer-email">Email: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=quenniebarbarona777@gmail.com" target="_blank" class="footer-link">quenniebarbarona777@gmail.com</a></p>
-                <p class="footer-email"><a href="tel:+639297198867" class="footer-link">+63 929 719 8867</a></p>
+                <p class="footer-email">Mobile: <a href="tel:+639297198867" class="footer-link">+63 929 719 8867</a></p>
                 <p class="footer-email">Davao City, Philippines</p>
                 <div class="footer-social">
                     <?php if ( $footer_github ) : ?>

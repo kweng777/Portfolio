@@ -102,17 +102,17 @@ $email      = get_field( 'social_email' );
                     </div>
                     
                     <ul class="nav-icons">
-                        
-                        <li style="--icon-index:0;"><a href="#home"><i class="fa-solid fa-house"></i></a></li>
-                        <li style="--icon-index:1;"><a href="<?php echo home_url('/about/'); ?>"><i class="fa-solid fa-user-tie"></i></a></li>
-                        
-                        <li style="--icon-index:2;"><a href="#works"><i class="fa-solid fa-code"></i></a></li>
-                        
-                        <li style="--icon-index:3;"><a href="#skills"><i class="fa-solid fa-gears"></i></a></li>
-                        
-                        <li style="--icon-index:4;"><a href="#certificates"><i class="fa-solid fa-award"></i></a></li>
-                        
-                        <li style="--icon-index:5;"><a href="#contact"><i class="fa-solid fa-envelope-open-text"></i></a></li>
+
+                        <li style="--icon-index:0;"><a href="#home"><i class="fa-solid fa-house"></i><span class="nav-label">HOME</span></a></li>
+                        <li style="--icon-index:1;"><a href="<?php echo home_url('/about/'); ?>"><i class="fa-solid fa-user-tie"></i><span class="nav-label">ABOUT</span></a></li>
+
+                        <li style="--icon-index:2;"><a href="#works"><i class="fa-solid fa-code"></i><span class="nav-label">WORKS</span></a></li>
+
+                        <li style="--icon-index:3;"><a href="#skills"><i class="fa-solid fa-gears"></i><span class="nav-label">SKILLS</span></a></li>
+
+                        <li style="--icon-index:4;"><a href="#certificates"><i class="fa-solid fa-award"></i><span class="nav-label">CERTIFICATES</span></a></li>
+
+                        <li style="--icon-index:5;"><a href="#contact"><i class="fa-solid fa-envelope-open-text"></i><span class="nav-label">CONTACT</span></a></li>
                     </ul>
                 </nav>
             </div>

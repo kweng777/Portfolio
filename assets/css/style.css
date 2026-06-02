@@ -286,6 +286,31 @@
     color: #000;
 }
 
+/* Nav label styling */
+.nav-icons a .nav-label {
+    position: absolute;
+    left: 120%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #000;
+    color: #FC7E00;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+    z-index: 30;
+}
+
+.nav-icons a:hover .nav-label {
+    opacity: 1;
+    visibility: visible;
+}
+
 
 .works-portfolio-wrapper {
     display: flex;
@@ -433,6 +458,8 @@
 /* Skills section specific - right icon bar white background */
 .works-portfolio-wrapper:has(.skills-section) .right-icon-bar {
     background-color: #fff;
+    height: auto;
+    min-height: 100vh;
 }
 
 /* For skills section ensure the left sidebar stretches to match main content height */

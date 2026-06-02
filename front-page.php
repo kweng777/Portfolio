@@ -265,11 +265,7 @@ $works = new WP_Query(array(
                             <?php echo get_field('work_subtitle'); ?>
                         </p>
 
-                        <?php 
-                        $work_url = get_field('work_url');
-                        $is_loan_management = stripos($title, 'Loan Management System') !== false;
-                        ?>
-                        <a href="<?php echo $is_loan_management && $work_url ? esc_url($work_url) : the_permalink(); ?>" class="project-see-more" data-work-url="<?php echo esc_url($work_url); ?>" data-is-loan-management="<?php echo $is_loan_management ? 'true' : 'false'; ?>">See More</a>
+                        <a href="<?php the_permalink(); ?>" class="project-see-more">See More</a>
 
                         <?php
                             // Collect up to 10 images (image1..image10) and their descriptions (image_1_description..image_10_description)
